@@ -2,8 +2,9 @@ before_script:
   - cmake --version
   - make --version
 
-build:
+build-unit-simple:
   script:
+    - cd unit-simple
     - cmake .
     - make
   artifacts:
