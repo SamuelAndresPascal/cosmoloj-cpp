@@ -16,6 +16,7 @@ endif()
 include_directories(
 	include
 	src
+	/usr/include/cppunit
 )
 
 
@@ -40,6 +41,18 @@ add_executable(
 target_link_libraries(
   cosmoloj-cpp-test
   cosmoloj-cpp
+)
+
+add_executable(
+  test
+  test/unit-test.cc
+  test/test.cc
+)
+
+target_link_libraries(
+  test
+  cosmoloj-cpp
+  cppunit
 )
 
 

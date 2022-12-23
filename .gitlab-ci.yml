@@ -2,10 +2,24 @@ before_script:
   - cmake --version
   - make --version
 
+stages:
+  - build
+  - test
+
 build-unit-simple:
+  stage: build
   script:
     - cd unit-simple
     - cmake .
     - make
+  artifacts:
+    expire_in: 2 days
+
+test-unit-simple:
+  stage: test
+  script:
+    - cd unit-simple
+    - make
+    - bin/test
   artifacts:
     expire_in: 2 days
