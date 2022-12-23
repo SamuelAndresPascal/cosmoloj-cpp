@@ -19,6 +19,7 @@ test-unit-simple:
   stage: test
   script:
     - cd unit-simple
+    - cmake .
     - make
     - bin/test
   artifacts:
