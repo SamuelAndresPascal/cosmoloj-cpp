@@ -1,4 +1,4 @@
-# Simple Unit (implémentation Typescript)
+# Simple Unit (implémentation C++)
 
 ## Utilisation
 
