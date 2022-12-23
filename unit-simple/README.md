@@ -5,7 +5,7 @@
 Utilisation des unités transformées :
 
 ```cpp
-#include "../include/unit.hh"
+#include "unit.hh"
 
 using namespace unit;
 
@@ -23,7 +23,7 @@ cmToKm->inverse()->convert(0.00003); // 3.
 Utilisation des unités dérivées :
 
 ```cpp
-#include "../include/unit.hh"
+#include "unit.hh"
 
 using namespace unit;
 
@@ -43,7 +43,7 @@ km2Tocm2->inverse()->convert(30000000000.); // 3.
 Utilisation des unités dérivées en combinant les dimensions :
 
 ```cpp
-#include "../include/unit.hh"
+#include "unit.hh"
 
 using namespace unit;
 
@@ -74,7 +74,7 @@ gPerM2ToTonPerCm2->inverse()->convert(3e-10); // 3.
 Utilisation des températures (conversions affines et linéaires) :
 
 ```cpp
-#include "../include/unit.hh"
+#include "unit.hh"
 
 using namespace unit;
 
@@ -104,7 +104,7 @@ kPerMToCPerM->inverse()->convert(3); // 3.
 Utilisation des conversions non-décimales :
 
 ```cpp
-#include "../include/unit.hh"
+#include "unit.hh"
 
 using namespace unit;
 

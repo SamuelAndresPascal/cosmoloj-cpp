@@ -3,7 +3,7 @@
 #include <TestFixture.h>
 #include <TestSuite.h>
 #include <TestCaller.h>
-#include "../include/unit.hh"
+#include "unit.hh"
 
 using namespace unit;
 
