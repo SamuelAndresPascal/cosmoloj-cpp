@@ -53,10 +53,51 @@ public:
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., gPerM2ToTonPerKm2->inverse()->convert(3.), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(1e-10, gPerM2ToTonPerCm2->convert(1.), 1e-20);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3e-10, gPerM2ToTonPerCm2->convert(3.), 1e-20);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(0., gPerM2ToTonPerCm2->offset(), 1e-10);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(1e-10, gPerM2ToTonPerCm2->scale(), 1e-10);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(-0., gPerM2ToTonPerCm2->inverse()->offset(), 1e-10);
+    CPPUNIT_ASSERT_EQUAL(0., gPerM2ToTonPerCm2->offset());
+    CPPUNIT_ASSERT_EQUAL(1e-10, gPerM2ToTonPerCm2->scale());
+    CPPUNIT_ASSERT_EQUAL(-0., gPerM2ToTonPerCm2->inverse()->offset());
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., gPerM2ToTonPerCm2->inverse()->convert(3e-10), 1e-10);
+  }
+  
+  void temperatures()
+  {
+
+    const Unit* k = new FundamentalUnit();
+    const Unit* c = k->shift(273.15);
+    const UnitConverter* kToC = k->getConverterTo(c);
+    
+
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(-273.15, kToC->convert(0), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(273.15, kToC->inverse()->convert(0), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(-272.15, kToC->convert(1), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(274.15, kToC->inverse()->convert(1), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(-271.15, kToC->convert(2), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(275.15, kToC->inverse()->convert(2), 1e-10);
+
+    // en combinaison avec d'autres unités, les conversions d'unités de températures doivent devenir linéaires
+    const Unit* m = new FundamentalUnit();
+    const Unit* cPerM = new DerivedUnit({c, m->factor(-1)});
+    const Unit* kPerM = new DerivedUnit({k, m->factor(-1)});
+    const UnitConverter* kPerMToCPerM = kPerM->getConverterTo(cPerM);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(3., kPerMToCPerM->convert(3), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(3., kPerMToCPerM->inverse()->convert(3), 1e-10);
+  }
+  
+  void speed()
+  {
+    const Unit* m = new FundamentalUnit();
+    const Unit* km = m->scaleMultiply(1000.0);
+
+    const Unit* s = new FundamentalUnit();
+    const Unit* h = s->scaleMultiply(3600.0);
+
+    const Unit* ms = new DerivedUnit({m, s->factor(-1)});
+    const Unit* kmh = new DerivedUnit({km, h->factor(-1)});
+
+    const UnitConverter* msToKmh = ms->getConverterTo(kmh);
+
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(360.0, msToKmh->convert(100.0), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(5.0, msToKmh->inverse()->convert(18.0), 1e-10);
   }
 
   
@@ -72,6 +113,12 @@ public:
     suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitTest>( 
                                    "combined dimension derived unit conversion", 
                                    &SimpleUnitTest::combinedDerived ) );
+    suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitTest>( 
+                                   "temperatures", 
+                                   &SimpleUnitTest::temperatures ) );
+    suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitTest>( 
+                                   "speed", 
+                                   &SimpleUnitTest::speed ) );
     return suiteOfTests;
   }
   
