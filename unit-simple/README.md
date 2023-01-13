@@ -127,11 +127,18 @@ msToKmh->inverse()->convert(18.0); // 5.0
 
 ## Développement
 
-Réinitialisation du projet, génération de la configuration CodeBlocks et du Makefile, et compilation:
+### Réinitialisation du projet, génération de la configuration CodeBlocks et du Makefile, et compilation:
 
-```
-cd simple-unit
+```bash
+cd unit-simple
 rm -rf bin/ lib/ CMakeFiles/ CMakeCache.txt Makefile cmake_install.cmake
 cmake . -G "CodeBlocks - Unix Makefiles"
 make
+```
+
+### Tests
+
+```bash
+cd unit-simple
+bin/test
 ```
