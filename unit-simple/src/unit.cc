@@ -1,8 +1,5 @@
-#ifndef UNIT_CC_
-#define UNIT_CC_
-
 #include <math.h>
-#include "../include/unit.hh"
+#include "unitConverter.cc"
 
 namespace unit {
 
@@ -22,12 +19,12 @@ namespace unit {
 
   const TransformedUnit* Unit::shift(const double value) const
   {
-    return new TransformedUnit(UnitConverter::of(1., value), this);
+    return new TransformedUnit(UnitConverterImpl::of(1., value), this);
   }
 
   const TransformedUnit* Unit::scaleMultiply(const double value) const
   {
-    return new TransformedUnit(UnitConverter::of(value), this);
+    return new TransformedUnit(UnitConverterImpl::of(value), this);
   }
 
   const TransformedUnit* Unit::scaleDivide(const double value) const
@@ -42,7 +39,7 @@ namespace unit {
 
   const UnitConverter* FundamentalUnit::toBase() const
   {
-    return UnitConverter::identity;
+    return UnitConverterImpl::of(1.);
   }
 
   FundamentalUnit::FundamentalUnit() : Unit()
@@ -82,7 +79,7 @@ namespace unit {
   const UnitConverter* DerivedUnit::toBase() const
   {
 
-    const UnitConverter* transform = UnitConverter::identity;
+    const UnitConverter* transform = UnitConverterImpl::of(1.);
 
     for (const Factor* factor : definition())
     {
@@ -91,4 +88,3 @@ namespace unit {
     return transform;
   }
 }
-#endif /* UNIT_CC_ */

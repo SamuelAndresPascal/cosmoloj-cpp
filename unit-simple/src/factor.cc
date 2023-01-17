@@ -1,8 +1,5 @@
-#ifndef FACTOR_CC_
-#define FACTOR_CC_
-
 #include <math.h>
-#include "../include/unit.hh"
+#include "unit.hh"
 
 namespace unit {
 
@@ -35,4 +32,3 @@ namespace unit {
     return mNumerator / (double) mDenominator;
   }
 }
-#endif /* FACTOR_CC_ */

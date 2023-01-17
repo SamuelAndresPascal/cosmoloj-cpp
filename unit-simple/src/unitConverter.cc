@@ -1,76 +1,84 @@
-#ifndef UNIT_CONVERTER_CC_
-#define UNIT_CONVERTER_CC_
-
 #include <math.h>
-#include "../include/unit.hh"
+#include "unit.hh"
 
 namespace unit {
 
-  UnitConverter::UnitConverter(const double scale, const double offset, const UnitConverter* inverse) : mScale(scale), mOffset(offset)
-  {
-    mInverse = inverse;
-  }
+  class UnitConverterImpl : public UnitConverter {
 
-  UnitConverter::UnitConverter(const double scale, const double offset) : mScale(scale), mOffset(offset)
-  {
-    mInverse = new UnitConverter(1 / mScale, -mOffset / mScale, this);
-  }
+    public:
+      UnitConverterImpl(double scale, double offset) : mScale(scale), mOffset(offset)
+      {
+        mInverse = new UnitConverterImpl(1 / mScale, -mOffset / mScale, this);
+      }
 
-  const UnitConverter* UnitConverter::of(const double scale, const double offset)
-  {
-    return new UnitConverter(scale, offset);
-  }
+      virtual ~UnitConverterImpl()
+      {
+        delete mInverse;
+      }
 
-  const UnitConverter* UnitConverter::identity = UnitConverter::of(1.);
+      double scale() const
+      {
+        return this->mScale;
+      }
 
-  UnitConverter::~UnitConverter()
-  {
-    delete mInverse;
-  }
+      double offset() const
+      {
+        return this->mOffset;
+      }
 
-  double UnitConverter::scale() const
-  {
-    return this->mScale;
-  }
+      const UnitConverter* inverse() const
+      {
+        return this->mInverse;
+      }
 
-  double UnitConverter::offset() const
-  {
-    return this->mOffset;
-  }
+      const UnitConverter* linear() const
+      {
+        // on fait volontairement ici une égalité exacte sur un double
+        if (this->mOffset == 0.0)
+        {
+          return this;
+        }
+        else
+        {
+          return new UnitConverterImpl(this->mScale, 0.);
+        }
+      }
 
-  const UnitConverter* UnitConverter::inverse() const
-  {
-    return this->mInverse;
-  }
+      const UnitConverter* linearPow(const double e) const
+      {
+        // on fait volontairement ici une égalité exacte sur un double
+        if (this->mOffset == 0.0 && e == 1.0)
+        {
+          return this;
+        }
+        else
+        {
+          return new UnitConverterImpl(pow(this->mScale, e), 0.);
+        }
+      }
 
-  const UnitConverter* UnitConverter::linear() const
-  {
-    // on fait volontairement ici une égalité exacte sur un double
-    if (this->mOffset == 0.0) {
-      return this;
-    } else {
-      return new UnitConverter(this->mScale, 0.);
-    }
-  }
+      double convert(double value) const
+      {
+        return value * this->mScale + this->mOffset;
+      }
 
-  const UnitConverter* UnitConverter::linearPow(const double e) const
-  {
-    // on fait volontairement ici une égalité exacte sur un double
-    if (this->mOffset == 0.0 && e == 1.0) {
-      return this;
-    } else {
-      return new UnitConverter(pow(this->mScale, e), 0.);
-    }
-  }
+      const UnitConverter* concatenate(const UnitConverter* converter) const
+      {
+        return new UnitConverterImpl(converter->scale() * this->mScale, this->convert(converter->offset()));
+      }
 
-  double UnitConverter::convert(const double value) const
-  {
-    return value * this->mScale + this->mOffset;
-  }
+      static const UnitConverter* of(double scale, double offset = 0.)
+      {
+        return new UnitConverterImpl(scale, offset);
+      }
 
-  const UnitConverter* UnitConverter::concatenate(const UnitConverter* converter) const
-  {
-    return new UnitConverter(converter->scale() * this->mScale, this->convert(converter->offset()));
-  }
+    private:
+      UnitConverterImpl(double scale, double offset, const UnitConverter* inverse) : mScale(scale), mOffset(offset)
+      {
+        mInverse = inverse;
+      }
+      const double mScale;
+      const double mOffset;
+      const UnitConverter* mInverse;
+  };
 }
-#endif /* UNIT_CONVERTER_CC_ */

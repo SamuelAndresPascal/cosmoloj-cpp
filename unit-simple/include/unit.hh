@@ -7,23 +7,13 @@ namespace unit {
 class UnitConverter {
 
   public:
-    UnitConverter(double scale, double offset);
-    virtual ~UnitConverter();
-    virtual double scale() const;
-    virtual double offset() const;
-    virtual const UnitConverter* inverse() const;
-    virtual const UnitConverter* linear() const;
-    virtual const UnitConverter* linearPow(double pow) const;
-    virtual double convert(double value) const;
-    virtual const UnitConverter* concatenate(const UnitConverter* converter) const;
-    static const UnitConverter* of(double scale, double offset = 0.);
-    static const UnitConverter* identity;
-
-  private:
-    UnitConverter(double scale, double offset, const UnitConverter* inverse);
-    const double mScale;
-    const double mOffset;
-    const UnitConverter* mInverse;
+    virtual double scale() const = 0;
+    virtual double offset() const = 0;
+    virtual const UnitConverter* inverse() const = 0;
+    virtual const UnitConverter* linear() const = 0;
+    virtual const UnitConverter* linearPow(double pow) const = 0;
+    virtual double convert(double value) const = 0;
+    virtual const UnitConverter* concatenate(const UnitConverter* converter) const = 0;
 };
 
 class Unit;
