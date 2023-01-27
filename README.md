@@ -1,6 +1,6 @@
 # Cosmoloj - C++
 
-[Implémentation de Simple Unit en C++](unit-simple/README.md)
+[Implémentation de Simple Unit en C++](unit-simple/)
 
 ## Programmation
 
