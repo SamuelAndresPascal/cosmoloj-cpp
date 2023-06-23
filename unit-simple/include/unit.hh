@@ -26,6 +26,7 @@ class UnitConverter {
     const double mScale;
     const double mOffset;
     const UnitConverter* mInverse;
+    const bool mDestructInverse;
 };
 
 class Unit;
