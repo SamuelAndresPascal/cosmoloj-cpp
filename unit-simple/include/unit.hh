@@ -1,3 +1,6 @@
+#ifndef UNIT_HH_
+#define UNIT_HH_
+
 #include <list>
 
 using namespace std;
@@ -7,13 +10,22 @@ namespace unit {
 class UnitConverter {
 
   public:
-    virtual double scale() const = 0;
-    virtual double offset() const = 0;
-    virtual const UnitConverter* inverse() const = 0;
-    virtual const UnitConverter* linear() const = 0;
-    virtual const UnitConverter* linearPow(double pow) const = 0;
-    virtual double convert(double value) const = 0;
-    virtual const UnitConverter* concatenate(const UnitConverter* converter) const = 0;
+    virtual ~UnitConverter();
+    UnitConverter(double scale, double offset);
+    UnitConverter(double scale, double offset, const UnitConverter* inverse);
+    virtual double scale() const;
+    virtual double offset() const;
+    virtual const UnitConverter* inverse() const;
+    virtual const UnitConverter* linear() const;
+    virtual const UnitConverter* linearPow(double pow) const;
+    virtual double convert(double value) const;
+    virtual const UnitConverter* concatenate(const UnitConverter* converter) const;
+    static const UnitConverter* of(double scale, double offset = 0.);
+
+  private:
+    const double mScale;
+    const double mOffset;
+    const UnitConverter* mInverse;
 };
 
 class Unit;
@@ -79,3 +91,4 @@ class DerivedUnit : public Unit {
 };
 
 }
+#endif /* UNIT_HH_ */
