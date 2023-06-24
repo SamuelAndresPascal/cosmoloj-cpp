@@ -1,5 +1,5 @@
 #include <math.h>
-#include "unit.hh"
+#include "unitSimpleRI.hh"
 
 namespace unit {
 
@@ -7,12 +7,12 @@ namespace unit {
   {
   }
 
-  const UnitConverter* Unit::affine(const Unit* source, const Unit* target)
+  const IUnitConverter* Unit::affine(const Unit* source, const Unit* target)
   {
     return target->toBase()->inverse()->concatenate(source->toBase());
   }
 
-  const UnitConverter* Unit::getConverterTo(const Unit* target) const
+  const IUnitConverter* Unit::getConverterTo(const Unit* target) const
   {
     return affine(this, target);
   }
@@ -37,7 +37,7 @@ namespace unit {
     return new Factor(this, numerator, denominator);
   }
 
-  const UnitConverter* FundamentalUnit::toBase() const
+  const IUnitConverter* FundamentalUnit::toBase() const
   {
     return UnitConverter::of(1.);
   }
@@ -52,7 +52,7 @@ namespace unit {
     mReference = refUnit;
   }
 
-  const UnitConverter* TransformedUnit::toReference() const
+  const IUnitConverter* TransformedUnit::toReference() const
   {
     return mToReference;
   }
@@ -62,7 +62,7 @@ namespace unit {
     return mReference;
   }
 
-  const UnitConverter* TransformedUnit::toBase() const
+  const IUnitConverter* TransformedUnit::toBase() const
   {
     return this->reference()->toBase()->concatenate(this->toReference());
   }
@@ -76,10 +76,10 @@ namespace unit {
     return mDefinition;
   }
 
-  const UnitConverter* DerivedUnit::toBase() const
+  const IUnitConverter* DerivedUnit::toBase() const
   {
 
-    const UnitConverter* transform = UnitConverter::of(1.);
+    const IUnitConverter* transform = UnitConverter::of(1.);
 
     for (const Factor* factor : definition())
     {

@@ -1,9 +1,9 @@
 #include <math.h>
-#include "unit.hh"
+#include "unitSimpleRI.hh"
 
 namespace unit {
 
-      UnitConverter::UnitConverter(double scale, double offset, const UnitConverter* inverse) : mScale(scale), mOffset(offset), mDestructInverse(false)
+      UnitConverter::UnitConverter(double scale, double offset, const IUnitConverter* inverse) : mScale(scale), mOffset(offset), mDestructInverse(false)
       {
         mInverse = inverse;
       }
@@ -31,12 +31,12 @@ namespace unit {
         return this->mOffset;
       }
 
-      const UnitConverter* UnitConverter::inverse() const
+      const IUnitConverter* UnitConverter::inverse() const
       {
         return this->mInverse;
       }
 
-      const UnitConverter* UnitConverter::linear() const
+      const IUnitConverter* UnitConverter::linear() const
       {
         // on fait volontairement ici une égalité exacte sur un double
         if (this->mOffset == 0.0)
@@ -49,7 +49,7 @@ namespace unit {
         }
       }
 
-      const UnitConverter* UnitConverter::linearPow(const double e) const
+      const IUnitConverter* UnitConverter::linearPow(const double e) const
       {
         // on fait volontairement ici une égalité exacte sur un double
         if (this->mOffset == 0.0 && e == 1.0)
@@ -67,7 +67,7 @@ namespace unit {
         return value * this->mScale + this->mOffset;
       }
 
-      const UnitConverter* UnitConverter::concatenate(const UnitConverter* converter) const
+      const IUnitConverter* UnitConverter::concatenate(const IUnitConverter* converter) const
       {
         return new UnitConverter(converter->scale() * this->mScale, this->convert(converter->offset()));
       }

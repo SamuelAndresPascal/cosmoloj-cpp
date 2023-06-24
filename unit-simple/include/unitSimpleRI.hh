@@ -2,30 +2,32 @@
 #define UNIT_HH_
 
 #include <list>
+#include "unitSimple.hh"
 
 using namespace std;
 
-namespace unit {
+namespace unit
+{
 
-class UnitConverter {
+class UnitConverter : public IUnitConverter {
 
   public:
     virtual ~UnitConverter();
     UnitConverter(double scale, double offset);
-    UnitConverter(double scale, double offset, const UnitConverter* inverse);
+    UnitConverter(double scale, double offset, const IUnitConverter* inverse);
     virtual double scale() const;
     virtual double offset() const;
-    virtual const UnitConverter* inverse() const;
-    virtual const UnitConverter* linear() const;
-    virtual const UnitConverter* linearPow(double pow) const;
+    virtual const IUnitConverter* inverse() const;
+    virtual const IUnitConverter* linear() const;
+    virtual const IUnitConverter* linearPow(double pow) const;
     virtual double convert(double value) const;
-    virtual const UnitConverter* concatenate(const UnitConverter* converter) const;
+    virtual const IUnitConverter* concatenate(const IUnitConverter* converter) const;
     static const UnitConverter* of(double scale, double offset = 0.);
 
   private:
     const double mScale;
     const double mOffset;
-    const UnitConverter* mInverse;
+    const IUnitConverter* mInverse;
     const bool mDestructInverse;
 };
 
@@ -52,28 +54,26 @@ class Unit : public Factor {
 
   public:
     Unit();
-    static const UnitConverter* affine(const Unit* source, const Unit* target);
-    virtual const UnitConverter* getConverterTo(const Unit* target) const;
-    virtual const UnitConverter* toBase() const = 0;
+    static const IUnitConverter* affine(const Unit* source, const Unit* target);
+    virtual const IUnitConverter* getConverterTo(const Unit* target) const;
+    virtual const IUnitConverter* toBase() const = 0;
     virtual const TransformedUnit* shift(double value) const;
     virtual const TransformedUnit* scaleMultiply(double value) const;
     virtual const Factor* factor(int numerator, int denominator = 1) const;
     virtual const TransformedUnit* scaleDivide(const double value) const;
-
-  protected:
 };
 
 class FundamentalUnit : public Unit {
   public:
     FundamentalUnit();
-    virtual const UnitConverter* toBase() const override;
+    virtual const IUnitConverter* toBase() const override;
 };
 
 class TransformedUnit : public Unit {
   public:
     TransformedUnit(const UnitConverter* toReference, const Unit* refUnit);
-    virtual const UnitConverter* toBase() const override;
-    virtual const UnitConverter* toReference() const;
+    virtual const IUnitConverter* toBase() const override;
+    virtual const IUnitConverter* toReference() const;
     virtual const Unit* reference() const;
 
   private:
@@ -84,7 +84,7 @@ class TransformedUnit : public Unit {
 class DerivedUnit : public Unit {
   public:
     DerivedUnit(const list<const Factor*> definition);
-    virtual const UnitConverter* toBase() const override;
+    virtual const IUnitConverter* toBase() const override;
     virtual const list<const Factor*> definition() const;
 
   private:

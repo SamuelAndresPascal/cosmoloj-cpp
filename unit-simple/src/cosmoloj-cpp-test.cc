@@ -1,5 +1,5 @@
 #include <iostream>
-#include "unit.hh"
+#include "unitSimpleRI.hh"
 
 using namespace std;
 using namespace unit;
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
   cout << km->toReference()->scale() << endl;
 
-  const UnitConverter* kmToCm = km->getConverterTo(cm);
+  const IUnitConverter* kmToCm = km->getConverterTo(cm);
 
   cout << kmToCm->convert(10) << endl;
 
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
   const DerivedUnit* ms = new DerivedUnit({m, s->factor(-1)});
   const DerivedUnit* kmh = new DerivedUnit({km, h->factor(-1)});
 
-  const UnitConverter* msToKmh = ms->getConverterTo(kmh);
+  const IUnitConverter* msToKmh = ms->getConverterTo(kmh);
 
   cout << msToKmh->convert(100) << endl;
 
