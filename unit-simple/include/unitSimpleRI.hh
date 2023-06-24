@@ -1,5 +1,5 @@
-#ifndef UNIT_HH_
-#define UNIT_HH_
+#ifndef UNIT_SIMPLE_RI_HH_INCLUDED
+#define UNIT_SIMPLE_RI_HH_INCLUDED
 
 #include <list>
 #include "unitSimple.hh"
@@ -92,4 +92,4 @@ class DerivedUnit : public Unit {
 };
 
 }
-#endif /* UNIT_HH_ */
+#endif /* UNIT_SIMPLE_RI_HH_INCLUDED */
