@@ -13,8 +13,6 @@ class UnitConverter : public IUnitConverter {
 
   public:
     virtual ~UnitConverter();
-    UnitConverter(double scale, double offset);
-    UnitConverter(double scale, double offset, const IUnitConverter* inverse);
     virtual double scale() const;
     virtual double offset() const;
     virtual const IUnitConverter* inverse() const;
@@ -29,6 +27,8 @@ class UnitConverter : public IUnitConverter {
     const double mOffset;
     const IUnitConverter* mInverse;
     const bool mDestructInverse;
+    UnitConverter(double scale, double offset);
+    UnitConverter(double scale, double offset, const IUnitConverter* inverse);
 };
 
 class Unit;
