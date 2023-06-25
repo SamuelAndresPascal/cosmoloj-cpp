@@ -3,6 +3,24 @@
 
 namespace unit {
 
+A::A(){}
+
+double A::a2() const
+{
+return 2.;
+}
+
+B::B(){}
+double B::b() const
+{
+return 0.;
+}
+
+double B::a1() const
+{
+return 1.;
+}
+
   Unit::Unit() : Factor(this, 1, 1)
   {
   }

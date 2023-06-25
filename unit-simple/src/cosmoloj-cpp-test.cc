@@ -8,6 +8,11 @@ using namespace unit;
 int main(int argc, char *argv[])
 {
 
+  const B* b = new B();
+  cout << b->a1() << endl;
+  cout << b->a2() << endl;
+  cout << b->b() << endl;
+
   const Unit* m = new FundamentalUnit();
   const TransformedUnit* km = m->scaleMultiply(1000.);
   const TransformedUnit* cm = m->scaleDivide(100.);

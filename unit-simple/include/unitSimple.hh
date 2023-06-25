@@ -8,6 +8,23 @@ using namespace std;
 namespace unit
 {
 
+class IA
+{
+public:
+    virtual ~IA() {}
+    virtual double a1() const = 0;
+    virtual double a2() const = 0;
+};
+
+class IB : virtual public IA
+{
+public:
+    virtual ~IB() {}
+    virtual double b() const = 0;
+};
+
+
+
 class IUnitConverter
 {
 

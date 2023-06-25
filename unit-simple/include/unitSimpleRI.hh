@@ -9,6 +9,23 @@ using namespace std;
 namespace unit
 {
 
+class A : virtual public IA
+{
+  public:
+    A();
+    virtual ~A() override {}
+    double a2() const override;
+};
+
+class B : public A, virtual public IB
+{
+  public:
+    B();
+    virtual ~B() override {}
+    virtual double a1() const override;
+    virtual double b() const override;
+};
+
 class UnitConverter : public IUnitConverter {
 
   public:
