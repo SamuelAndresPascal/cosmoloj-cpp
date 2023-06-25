@@ -9,50 +9,49 @@ if(NOT DEFINED EXECUTABLE_OUTPUT_PATH)
 endif()
 
 if(NOT DEFINED LIBRARY_OUTPUT_PATH)
-	set(LIBRARY_OUTPUT_PATH lib/${CMAKE_BUILD_TYPE})
+    set(LIBRARY_OUTPUT_PATH lib/${CMAKE_BUILD_TYPE})
 endif()
 
 
 include_directories(
-	include
-	src
-	/usr/include/cppunit
+    include
+    /usr/include/cppunit
+    ../unit-simple/include
 )
 
 
 file(
-	GLOB
-	source_files
-	include/*
-	src/*
+    GLOB
+    source_files
+    src/*
 )
 
 add_library(
-	unit-simple-ri
-	SHARED
-	${source_files}
+    unit-simple-ri
+    SHARED
+    ${source_files}
 )
 
 add_executable(
-  unit-simple-ri-test
-  src/unit-simple-ri-test.cc
+    unit-simple-ri-test
+    src/unit-simple-ri-test.cc
 )
 
 target_link_libraries(
-  unit-simple-ri-test
-  unit-simple-ri
+    unit-simple-ri-test
+    unit-simple-ri
 )
 
 add_executable(
-  test
-  test/unit-test.cc
-  test/test.cc
+    test
+    test/unit-test.cc
+    test/test.cc
 )
 
 target_link_libraries(
-  test
-  unit-simple-ri
-  cppunit
+    test
+    unit-simple-ri
+    cppunit
 )
 
 
