@@ -82,7 +82,9 @@ const IUnitConverter* DerivedUnit::toBase() const
 
     for (const IFactor* factor : definition())
     {
+        const IUnitConverter* oldTransform = transform;
         transform = factor->dim()->toBase()->linearPow(factor->power())->concatenate(transform);
+        delete oldTransform;
     }
     return transform;
 }
