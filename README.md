@@ -1,7 +1,7 @@
 # Cosmoloj - C++
 
-[Implémentation de Simple Unit en C++ (en-tête)](unit-simple/)
-[Implémentation de Simple Unit en C++ (implémentation de référence)](unit-simple-ri/)
+* [Implémentation de Simple Unit en C++ (en-tête)](unit-simple/)
+* [Implémentation de Simple Unit en C++ (implémentation de référence)](unit-simple-ri/)
 
 ## Programmation
 
