@@ -11,18 +11,19 @@ namespace unit
 
 class UnitConverter : public IUnitConverter {
 
-  public:
-    virtual ~UnitConverter();
-    virtual double scale() const;
-    virtual double offset() const;
-    virtual const IUnitConverter* inverse() const;
-    virtual const IUnitConverter* linear() const;
-    virtual const IUnitConverter* linearPow(double pow) const;
-    virtual double convert(double value) const;
-    virtual const IUnitConverter* concatenate(const IUnitConverter* converter) const;
+public:
+    virtual double scale() const override;
+    virtual double offset() const override;
+    virtual const IUnitConverter* inverse() const override;
+    virtual const IUnitConverter* linear() const override;
+    virtual const IUnitConverter* linearPow(double pow) const override;
+    virtual double convert(double value) const override;
+    virtual const IUnitConverter* concatenate(const IUnitConverter* converter) const override;
+    virtual ~UnitConverter() override;
+
     static const UnitConverter* of(double scale, double offset = 0.);
 
-  private:
+private:
     const double mScale;
     const double mOffset;
     const IUnitConverter* mInverse;
@@ -36,11 +37,11 @@ class Unit;
 class Factor {
   public:
     Factor(const Unit* unit, int numerator, int denominator);
-    virtual ~Factor();
     virtual const Unit* dim() const;
     virtual int numerator() const;
     virtual int denominator() const;
     virtual double power() const;
+    virtual ~Factor() {}
 
   private:
     const Unit* mUnit;
@@ -61,12 +62,14 @@ class Unit : public Factor {
     virtual const TransformedUnit* scaleMultiply(double value) const;
     virtual const Factor* factor(int numerator, int denominator = 1) const;
     virtual const TransformedUnit* scaleDivide(const double value) const;
+    virtual ~Unit() {}
 };
 
 class FundamentalUnit : public Unit {
   public:
     FundamentalUnit();
     virtual const IUnitConverter* toBase() const override;
+    virtual ~FundamentalUnit() {}
 };
 
 class TransformedUnit : public Unit {
@@ -75,6 +78,7 @@ class TransformedUnit : public Unit {
     virtual const IUnitConverter* toBase() const override;
     virtual const IUnitConverter* toReference() const;
     virtual const Unit* reference() const;
+    virtual ~TransformedUnit() {}
 
   private:
     const Unit* mReference;
@@ -86,6 +90,7 @@ class DerivedUnit : public Unit {
     DerivedUnit(const list<const Factor*> definition);
     virtual const IUnitConverter* toBase() const override;
     virtual const list<const Factor*> definition() const;
+    virtual ~DerivedUnit() {}
 
   private:
     const list<const Factor*> mDefinition;

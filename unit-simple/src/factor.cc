@@ -8,10 +8,6 @@ namespace unit {
     mUnit = unit;
   }
 
-  Factor::~Factor()
-  {
-  }
-
   const Unit* Factor::dim() const
   {
     return mUnit;
