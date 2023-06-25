@@ -3,9 +3,8 @@
 
 namespace unit {
 
-  Factor::Factor(const IUnit* unit, const int numerator, const int denominator) : mNumerator(numerator), mDenominator(denominator)
+  Factor::Factor(const IUnit* unit, const int numerator, const int denominator) : mNumerator(numerator), mDenominator(denominator), mUnit(unit)
   {
-    mUnit = unit;
   }
 
   const IUnit* Factor::dim() const

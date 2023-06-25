@@ -1,90 +1,89 @@
 #include <math.h>
 #include "unitSimpleRI.hh"
 
-namespace unit {
+namespace unit
+{
 
-  Unit::Unit() : Factor(this, 1, 1)
-  {
-  }
+Unit::Unit() : Factor(this, 1, 1)
+{
+}
 
-  const IUnitConverter* Unit::affine(const IUnit* source, const IUnit* target)
-  {
+const IUnitConverter* Unit::affine(const IUnit* source, const IUnit* target)
+{
     return target->toBase()->inverse()->concatenate(source->toBase());
-  }
+}
 
-  const IUnitConverter* Unit::getConverterTo(const IUnit* target) const
-  {
+const IUnitConverter* Unit::getConverterTo(const IUnit* target) const
+{
     return affine(this, target);
-  }
+}
 
-  const ITransformedUnit* Unit::shift(const double value) const
-  {
+const ITransformedUnit* Unit::shift(const double value) const
+{
     return new TransformedUnit(UnitConverter::of(1., value), this);
-  }
+}
 
-  const ITransformedUnit* Unit::scaleMultiply(const double value) const
-  {
+const ITransformedUnit* Unit::scaleMultiply(const double value) const
+{
     return new TransformedUnit(UnitConverter::of(value), this);
-  }
+}
 
-  const ITransformedUnit* Unit::scaleDivide(const double value) const
-  {
+const ITransformedUnit* Unit::scaleDivide(const double value) const
+{
     return scaleMultiply(1. / value);
-  }
+}
 
-  const IFactor* Unit::factor(const int numerator, const int denominator) const
-  {
+const IFactor* Unit::factor(const int numerator, const int denominator) const
+{
     return new Factor(this, numerator, denominator);
-  }
+}
 
-  const IUnitConverter* FundamentalUnit::toBase() const
-  {
+const IUnitConverter* FundamentalUnit::toBase() const
+{
     return UnitConverter::of(1.);
-  }
+}
 
-  FundamentalUnit::FundamentalUnit() : Unit()
-  {
-  }
+FundamentalUnit::FundamentalUnit() : Unit()
+{
+}
 
-  TransformedUnit::TransformedUnit(const IUnitConverter* toReference, const IUnit* refUnit)
-  {
-    mToReference = toReference;
-    mReference = refUnit;
-  }
+TransformedUnit::TransformedUnit(const IUnitConverter* toReference, const IUnit* refUnit) : mToReference(toReference), mReference(refUnit)
+{
+}
 
-  const IUnitConverter* TransformedUnit::toReference() const
-  {
+const IUnitConverter* TransformedUnit::toReference() const
+{
     return mToReference;
-  }
+}
 
-  const IUnit* TransformedUnit::reference() const
-  {
+const IUnit* TransformedUnit::reference() const
+{
     return mReference;
-  }
+}
 
-  const IUnitConverter* TransformedUnit::toBase() const
-  {
+const IUnitConverter* TransformedUnit::toBase() const
+{
     return this->reference()->toBase()->concatenate(this->toReference());
-  }
+}
 
-  DerivedUnit::DerivedUnit(const list<const IFactor*> definition) : mDefinition(definition)
-  {
-  }
+DerivedUnit::DerivedUnit(const list<const IFactor*> definition) : mDefinition(definition)
+{
+}
 
-  const list<const IFactor*> DerivedUnit::definition() const
-  {
+const list<const IFactor*> DerivedUnit::definition() const
+{
     return mDefinition;
-  }
+}
 
-  const IUnitConverter* DerivedUnit::toBase() const
-  {
+const IUnitConverter* DerivedUnit::toBase() const
+{
 
     const IUnitConverter* transform = UnitConverter::of(1.);
 
     for (const IFactor* factor : definition())
     {
-      transform = factor->dim()->toBase()->linearPow(factor->power())->concatenate(transform);
+        transform = factor->dim()->toBase()->linearPow(factor->power())->concatenate(transform);
     }
     return transform;
-  }
+}
 }

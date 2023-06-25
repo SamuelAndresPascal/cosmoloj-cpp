@@ -20,6 +20,7 @@ public:
     virtual const IUnitConverter* linearPow(double pow) const override;
     virtual double convert(double value) const override;
     virtual const IUnitConverter* concatenate(const IUnitConverter* converter) const override;
+
     virtual ~UnitConverter() override;
 
     static const UnitConverter* of(double scale, double offset = 0.);
@@ -35,12 +36,15 @@ private:
 
 class Factor : public virtual IFactor
 {
+
 public:
     Factor(const IUnit* unit, int numerator, int denominator);
+
     virtual const IUnit* dim() const override;
     virtual int numerator() const override;
     virtual int denominator() const override;
     virtual double power() const override;
+
     virtual ~Factor() {}
 
 private:
@@ -54,6 +58,7 @@ class Unit : public Factor, virtual public IUnit
 
 public:
     Unit();
+
     virtual const IUnitConverter* toBase() const = 0;
 
     virtual const IUnitConverter* getConverterTo(const IUnit* target) const override;
@@ -61,6 +66,7 @@ public:
     virtual const ITransformedUnit* scaleMultiply(double value) const override;
     virtual const IFactor* factor(int numerator, int denominator = 1) const override;
     virtual const ITransformedUnit* scaleDivide(const double value) const override;
+
     virtual ~Unit() {}
 
     static const IUnitConverter* affine(const IUnit* source, const IUnit* target);
@@ -68,19 +74,25 @@ public:
 
 class FundamentalUnit : public Unit, virtual public IFundamentalUnit
 {
+
 public:
     FundamentalUnit();
+
     virtual const IUnitConverter* toBase() const override;
+
     virtual ~FundamentalUnit() {}
 };
 
 class TransformedUnit : public Unit, virtual public ITransformedUnit
 {
+
 public:
     TransformedUnit(const IUnitConverter* toReference, const IUnit* refUnit);
+
     virtual const IUnitConverter* toBase() const override;
     virtual const IUnitConverter* toReference() const override;
     virtual const IUnit* reference() const override;
+
     virtual ~TransformedUnit() {}
 
 private:
@@ -90,10 +102,13 @@ private:
 
 class DerivedUnit : public Unit, virtual public IDerivedUnit
 {
+
 public:
     DerivedUnit(const list<const IFactor*> definition);
+
     virtual const IUnitConverter* toBase() const override;
     virtual const list<const IFactor*> definition() const override;
+
     virtual ~DerivedUnit() {}
 
 private:

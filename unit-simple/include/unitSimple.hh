@@ -19,6 +19,7 @@ public:
     virtual const IUnitConverter* linearPow(double pow) const = 0;
     virtual double convert(double value) const = 0;
     virtual const IUnitConverter* concatenate(const IUnitConverter* converter) const = 0;
+
     virtual ~IUnitConverter() {}
 };
 
@@ -31,6 +32,7 @@ class IFactor {
     virtual int numerator() const = 0;
     virtual int denominator() const = 0;
     virtual double power() const = 0;
+
     virtual ~IFactor() {}
 };
 
@@ -45,6 +47,7 @@ class IUnit : virtual public IFactor {
     virtual const ITransformedUnit* scaleMultiply(double value) const = 0;
     virtual const IFactor* factor(int numerator, int denominator = 1) const = 0;
     virtual const ITransformedUnit* scaleDivide(const double value) const = 0;
+
     virtual ~IUnit() {}
 };
 
