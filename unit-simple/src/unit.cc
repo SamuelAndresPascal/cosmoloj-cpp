@@ -7,32 +7,32 @@ namespace unit {
   {
   }
 
-  const IUnitConverter* Unit::affine(const Unit* source, const Unit* target)
+  const IUnitConverter* Unit::affine(const IUnit* source, const IUnit* target)
   {
     return target->toBase()->inverse()->concatenate(source->toBase());
   }
 
-  const IUnitConverter* Unit::getConverterTo(const Unit* target) const
+  const IUnitConverter* Unit::getConverterTo(const IUnit* target) const
   {
     return affine(this, target);
   }
 
-  const TransformedUnit* Unit::shift(const double value) const
+  const ITransformedUnit* Unit::shift(const double value) const
   {
     return new TransformedUnit(UnitConverter::of(1., value), this);
   }
 
-  const TransformedUnit* Unit::scaleMultiply(const double value) const
+  const ITransformedUnit* Unit::scaleMultiply(const double value) const
   {
     return new TransformedUnit(UnitConverter::of(value), this);
   }
 
-  const TransformedUnit* Unit::scaleDivide(const double value) const
+  const ITransformedUnit* Unit::scaleDivide(const double value) const
   {
     return scaleMultiply(1. / value);
   }
 
-  const Factor* Unit::factor(const int numerator, const int denominator) const
+  const IFactor* Unit::factor(const int numerator, const int denominator) const
   {
     return new Factor(this, numerator, denominator);
   }
@@ -46,7 +46,7 @@ namespace unit {
   {
   }
 
-  TransformedUnit::TransformedUnit(const UnitConverter* toReference, const Unit* refUnit)
+  TransformedUnit::TransformedUnit(const IUnitConverter* toReference, const IUnit* refUnit)
   {
     mToReference = toReference;
     mReference = refUnit;
@@ -57,7 +57,7 @@ namespace unit {
     return mToReference;
   }
 
-  const Unit* TransformedUnit::reference() const
+  const IUnit* TransformedUnit::reference() const
   {
     return mReference;
   }
@@ -67,11 +67,11 @@ namespace unit {
     return this->reference()->toBase()->concatenate(this->toReference());
   }
 
-  DerivedUnit::DerivedUnit(const list<const Factor*> definition) : mDefinition(definition)
+  DerivedUnit::DerivedUnit(const list<const IFactor*> definition) : mDefinition(definition)
   {
   }
 
-  const list<const Factor*> DerivedUnit::definition() const
+  const list<const IFactor*> DerivedUnit::definition() const
   {
     return mDefinition;
   }
@@ -81,7 +81,7 @@ namespace unit {
 
     const IUnitConverter* transform = UnitConverter::of(1.);
 
-    for (const Factor* factor : definition())
+    for (const IFactor* factor : definition())
     {
       transform = factor->dim()->toBase()->linearPow(factor->power())->concatenate(transform);
     }

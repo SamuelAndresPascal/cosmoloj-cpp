@@ -33,42 +33,40 @@ private:
     UnitConverter(double scale, double offset, const IUnitConverter* inverse);
 };
 
-class Unit;
-
-class Factor
+class Factor : public virtual IFactor
 {
 public:
-    Factor(const Unit* unit, int numerator, int denominator);
-    virtual const Unit* dim() const;
-    virtual int numerator() const;
-    virtual int denominator() const;
-    virtual double power() const;
+    Factor(const IUnit* unit, int numerator, int denominator);
+    virtual const IUnit* dim() const override;
+    virtual int numerator() const override;
+    virtual int denominator() const override;
+    virtual double power() const override;
     virtual ~Factor() {}
 
 private:
-    const Unit* mUnit;
+    const IUnit* mUnit;
     const int mNumerator;
     const int mDenominator;
 };
 
-class TransformedUnit;
-
-class Unit : public Factor
+class Unit : public Factor, virtual public IUnit
 {
 
 public:
     Unit();
-    static const IUnitConverter* affine(const Unit* source, const Unit* target);
-    virtual const IUnitConverter* getConverterTo(const Unit* target) const;
     virtual const IUnitConverter* toBase() const = 0;
-    virtual const TransformedUnit* shift(double value) const;
-    virtual const TransformedUnit* scaleMultiply(double value) const;
-    virtual const Factor* factor(int numerator, int denominator = 1) const;
-    virtual const TransformedUnit* scaleDivide(const double value) const;
+
+    virtual const IUnitConverter* getConverterTo(const IUnit* target) const override;
+    virtual const ITransformedUnit* shift(double value) const override;
+    virtual const ITransformedUnit* scaleMultiply(double value) const override;
+    virtual const IFactor* factor(int numerator, int denominator = 1) const override;
+    virtual const ITransformedUnit* scaleDivide(const double value) const override;
     virtual ~Unit() {}
+
+    static const IUnitConverter* affine(const IUnit* source, const IUnit* target);
 };
 
-class FundamentalUnit : public Unit
+class FundamentalUnit : public Unit, virtual public IFundamentalUnit
 {
 public:
     FundamentalUnit();
@@ -76,30 +74,30 @@ public:
     virtual ~FundamentalUnit() {}
 };
 
-class TransformedUnit : public Unit
+class TransformedUnit : public Unit, virtual public ITransformedUnit
 {
 public:
-    TransformedUnit(const UnitConverter* toReference, const Unit* refUnit);
+    TransformedUnit(const IUnitConverter* toReference, const IUnit* refUnit);
     virtual const IUnitConverter* toBase() const override;
-    virtual const IUnitConverter* toReference() const;
-    virtual const Unit* reference() const;
+    virtual const IUnitConverter* toReference() const override;
+    virtual const IUnit* reference() const override;
     virtual ~TransformedUnit() {}
 
 private:
-    const Unit* mReference;
-    const UnitConverter* mToReference;
+    const IUnit* mReference;
+    const IUnitConverter* mToReference;
 };
 
-class DerivedUnit : public Unit
+class DerivedUnit : public Unit, virtual public IDerivedUnit
 {
 public:
-    DerivedUnit(const list<const Factor*> definition);
+    DerivedUnit(const list<const IFactor*> definition);
     virtual const IUnitConverter* toBase() const override;
-    virtual const list<const Factor*> definition() const;
+    virtual const list<const IFactor*> definition() const override;
     virtual ~DerivedUnit() {}
 
 private:
-    const list<const Factor*> mDefinition;
+    const list<const IFactor*> mDefinition;
 };
 
 }

@@ -51,7 +51,6 @@ class IUnit : virtual public IFactor {
 class IFundamentalUnit : virtual public IUnit {
 
   public:
-    virtual const IUnitConverter* toBase() const override;
     virtual ~IFundamentalUnit() {}
 };
 
@@ -61,7 +60,6 @@ class ITransformedUnit : virtual public IUnit {
     virtual const IUnitConverter* toReference() const = 0;
     virtual const IUnit* reference() const = 0;
 
-    virtual const IUnitConverter* toBase() const override;
     virtual ~ITransformedUnit() {}
 };
 
@@ -70,7 +68,6 @@ class IDerivedUnit : virtual public IUnit {
 public:
     virtual const list<const IFactor*> definition() const = 0;
 
-    virtual const IUnitConverter* toBase() const override;
     virtual ~IDerivedUnit() {}
 };
 

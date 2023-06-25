@@ -12,9 +12,9 @@ public:
 
   void transformed()
   {
-    const Unit* m = new FundamentalUnit();
-    const Unit* km = m->scaleMultiply(1000);
-    const Unit* cm = m->scaleDivide(100);
+    const IUnit* m = new FundamentalUnit();
+    const IUnit* km = m->scaleMultiply(1000);
+    const IUnit* cm = m->scaleDivide(100);
     const IUnitConverter* cmToKm = cm->getConverterTo(km);
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(0.00003, cmToKm->convert(3), 1e-10);
@@ -23,11 +23,11 @@ public:
 
   void derived()
   {
-    const Unit* m = new FundamentalUnit();
-    const Unit* km = m->scaleMultiply(1000);
-    const Unit* km2 = new DerivedUnit({km->factor(2)});
-    const Unit* cm = m->scaleDivide(100);
-    const Unit* cm2 = new DerivedUnit({cm->factor(2)});
+    const IUnit* m = new FundamentalUnit();
+    const IUnit* km = m->scaleMultiply(1000);
+    const IUnit* km2 = new DerivedUnit({km->factor(2)});
+    const IUnit* cm = m->scaleDivide(100);
+    const IUnit* cm2 = new DerivedUnit({cm->factor(2)});
     const IUnitConverter* km2Tocm2 = km2->getConverterTo(cm2);
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(30000000000., km2Tocm2->convert(3), 1e-10);
@@ -37,15 +37,15 @@ public:
   void combinedDerived()
   {
 
-    const Unit* m = new FundamentalUnit();
-    const Unit* kg = new FundamentalUnit();
-    const Unit* g = kg->scaleDivide(1000);
-    const Unit* ton = kg->scaleMultiply(1000);
-    const Unit* gPerM2 = new DerivedUnit({g, m->factor(-2)});
-    const Unit* km = m->scaleMultiply(1000);
-    const Unit* tonPerKm2 = new DerivedUnit({ton, km->factor(-2)});
-    const Unit* cm = m->scaleDivide(100);
-    const Unit* tonPerCm2 = new DerivedUnit({ton, cm->factor(-2)});
+    const IUnit* m = new FundamentalUnit();
+    const IUnit* kg = new FundamentalUnit();
+    const IUnit* g = kg->scaleDivide(1000);
+    const IUnit* ton = kg->scaleMultiply(1000);
+    const IUnit* gPerM2 = new DerivedUnit({g, m->factor(-2)});
+    const IUnit* km = m->scaleMultiply(1000);
+    const IUnit* tonPerKm2 = new DerivedUnit({ton, km->factor(-2)});
+    const IUnit* cm = m->scaleDivide(100);
+    const IUnit* tonPerCm2 = new DerivedUnit({ton, cm->factor(-2)});
     const IUnitConverter* gPerM2ToTonPerKm2 = gPerM2->getConverterTo(tonPerKm2);
     const IUnitConverter* gPerM2ToTonPerCm2 = gPerM2->getConverterTo(tonPerCm2);
 
@@ -62,8 +62,8 @@ public:
   void temperatures()
   {
 
-    const Unit* k = new FundamentalUnit();
-    const Unit* c = k->shift(273.15);
+    const IUnit* k = new FundamentalUnit();
+    const IUnit* c = k->shift(273.15);
     const IUnitConverter* kToC = k->getConverterTo(c);
 
 
@@ -75,9 +75,9 @@ public:
     CPPUNIT_ASSERT_DOUBLES_EQUAL(275.15, kToC->inverse()->convert(2), 1e-10);
 
     // en combinaison avec d'autres unités, les conversions d'unités de températures doivent devenir linéaires
-    const Unit* m = new FundamentalUnit();
-    const Unit* cPerM = new DerivedUnit({c, m->factor(-1)});
-    const Unit* kPerM = new DerivedUnit({k, m->factor(-1)});
+    const IUnit* m = new FundamentalUnit();
+    const IUnit* cPerM = new DerivedUnit({c, m->factor(-1)});
+    const IUnit* kPerM = new DerivedUnit({k, m->factor(-1)});
     const IUnitConverter* kPerMToCPerM = kPerM->getConverterTo(cPerM);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., kPerMToCPerM->convert(3), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., kPerMToCPerM->inverse()->convert(3), 1e-10);
@@ -85,14 +85,14 @@ public:
 
   void speed()
   {
-    const Unit* m = new FundamentalUnit();
-    const Unit* km = m->scaleMultiply(1000.0);
+    const IUnit* m = new FundamentalUnit();
+    const IUnit* km = m->scaleMultiply(1000.0);
 
-    const Unit* s = new FundamentalUnit();
-    const Unit* h = s->scaleMultiply(3600.0);
+    const IUnit* s = new FundamentalUnit();
+    const IUnit* h = s->scaleMultiply(3600.0);
 
-    const Unit* ms = new DerivedUnit({m, s->factor(-1)});
-    const Unit* kmh = new DerivedUnit({km, h->factor(-1)});
+    const IUnit* ms = new DerivedUnit({m, s->factor(-1)});
+    const IUnit* kmh = new DerivedUnit({km, h->factor(-1)});
 
     const IUnitConverter* msToKmh = ms->getConverterTo(kmh);
 
