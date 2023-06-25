@@ -28,19 +28,19 @@ file(
 )
 
 add_library(
-	cosmoloj-cpp
+	unit-simple-ri
 	SHARED
 	${source_files}
 )
 
 add_executable(
-  cosmoloj-cpp-test
-  src/cosmoloj-cpp-test.cc
+  unit-simple-ri-test
+  src/unit-simple-ri-test.cc
 )
 
 target_link_libraries(
-  cosmoloj-cpp-test
-  cosmoloj-cpp
+  unit-simple-ri-test
+  unit-simple-ri
 )
 
 add_executable(
@@ -51,7 +51,7 @@ add_executable(
 
 target_link_libraries(
   test
-  cosmoloj-cpp
+  unit-simple-ri
   cppunit
 )
 
