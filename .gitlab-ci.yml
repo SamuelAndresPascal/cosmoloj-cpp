@@ -24,3 +24,10 @@ test-unit-simple:
     - bin/test
   artifacts:
     expire_in: 2 days
+
+sonar:
+  stage: sonar
+  script:
+    - $SONAR_SCANNER_HOME/bin/sonar-scanner -Dsonar.login=$SONAR_LOGIN
+  artifacts:
+    expire_in: 2 days
