@@ -9,7 +9,8 @@ using namespace std;
 namespace unit
 {
 
-class UnitConverter : public IUnitConverter {
+class UnitConverter : public IUnitConverter
+{
 
 public:
     virtual double scale() const override;
@@ -34,8 +35,9 @@ private:
 
 class Unit;
 
-class Factor {
-  public:
+class Factor
+{
+public:
     Factor(const Unit* unit, int numerator, int denominator);
     virtual const Unit* dim() const;
     virtual int numerator() const;
@@ -43,7 +45,7 @@ class Factor {
     virtual double power() const;
     virtual ~Factor() {}
 
-  private:
+private:
     const Unit* mUnit;
     const int mNumerator;
     const int mDenominator;
@@ -51,9 +53,10 @@ class Factor {
 
 class TransformedUnit;
 
-class Unit : public Factor {
+class Unit : public Factor
+{
 
-  public:
+public:
     Unit();
     static const IUnitConverter* affine(const Unit* source, const Unit* target);
     virtual const IUnitConverter* getConverterTo(const Unit* target) const;
@@ -65,34 +68,37 @@ class Unit : public Factor {
     virtual ~Unit() {}
 };
 
-class FundamentalUnit : public Unit {
-  public:
+class FundamentalUnit : public Unit
+{
+public:
     FundamentalUnit();
     virtual const IUnitConverter* toBase() const override;
     virtual ~FundamentalUnit() {}
 };
 
-class TransformedUnit : public Unit {
-  public:
+class TransformedUnit : public Unit
+{
+public:
     TransformedUnit(const UnitConverter* toReference, const Unit* refUnit);
     virtual const IUnitConverter* toBase() const override;
     virtual const IUnitConverter* toReference() const;
     virtual const Unit* reference() const;
     virtual ~TransformedUnit() {}
 
-  private:
+private:
     const Unit* mReference;
     const UnitConverter* mToReference;
 };
 
-class DerivedUnit : public Unit {
-  public:
+class DerivedUnit : public Unit
+{
+public:
     DerivedUnit(const list<const Factor*> definition);
     virtual const IUnitConverter* toBase() const override;
     virtual const list<const Factor*> definition() const;
     virtual ~DerivedUnit() {}
 
-  private:
+private:
     const list<const Factor*> mDefinition;
 };
 

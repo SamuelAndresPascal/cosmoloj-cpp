@@ -12,7 +12,6 @@ class IUnitConverter
 {
 
 public:
-    virtual ~IUnitConverter() {}
     virtual double scale() const = 0;
     virtual double offset() const = 0;
     virtual const IUnitConverter* inverse() const = 0;
@@ -20,22 +19,24 @@ public:
     virtual const IUnitConverter* linearPow(double pow) const = 0;
     virtual double convert(double value) const = 0;
     virtual const IUnitConverter* concatenate(const IUnitConverter* converter) const = 0;
+    virtual ~IUnitConverter() {}
 };
 
 class IUnit;
 
 class IFactor {
+
   public:
-    virtual ~IFactor() {}
     virtual const IUnit* dim() const = 0;
     virtual int numerator() const = 0;
     virtual int denominator() const = 0;
     virtual double power() const = 0;
+    virtual ~IFactor() {}
 };
 
 class ITransformedUnit;
 
-class IUnit : public IFactor {
+class IUnit : virtual public IFactor {
 
   public:
     virtual const IUnitConverter* getConverterTo(const IUnit* target) const = 0;
@@ -44,24 +45,33 @@ class IUnit : public IFactor {
     virtual const ITransformedUnit* scaleMultiply(double value) const = 0;
     virtual const IFactor* factor(int numerator, int denominator = 1) const = 0;
     virtual const ITransformedUnit* scaleDivide(const double value) const = 0;
+    virtual ~IUnit() {}
 };
 
-class IFundamentalUnit : public IUnit {
+class IFundamentalUnit : virtual public IUnit {
+
   public:
     virtual const IUnitConverter* toBase() const override;
+    virtual ~IFundamentalUnit() {}
 };
 
-class ITransformedUnit : public IUnit {
+class ITransformedUnit : virtual public IUnit {
+
   public:
-    virtual const IUnitConverter* toBase() const override;
     virtual const IUnitConverter* toReference() const = 0;
     virtual const IUnit* reference() const = 0;
+
+    virtual const IUnitConverter* toBase() const override;
+    virtual ~ITransformedUnit() {}
 };
 
-class IDerivedUnit : public IUnit {
-  public:
-    virtual const IUnitConverter* toBase() const override;
+class IDerivedUnit : virtual public IUnit {
+
+public:
     virtual const list<const IFactor*> definition() const = 0;
+
+    virtual const IUnitConverter* toBase() const override;
+    virtual ~IDerivedUnit() {}
 };
 
 }
