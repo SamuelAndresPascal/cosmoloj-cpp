@@ -6,10 +6,10 @@ stages:
   - build
   - test
 
-build-unit-simple:
+build-unit-simple-ri:
   stage: build
   script:
-    - cd unit-simple
+    - cd unit-simple-ri
     - cmake .
     - make
   artifacts:
@@ -18,7 +18,7 @@ build-unit-simple:
 test-unit-simple:
   stage: test
   script:
-    - cd unit-simple
+    - cd unit-simple-ri
     - cmake .
     - make
     - bin/test

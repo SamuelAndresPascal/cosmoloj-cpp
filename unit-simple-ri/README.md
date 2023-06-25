@@ -5,7 +5,7 @@
 Utilisation des unités transformées :
 
 ```cpp
-#include "unit.hh"
+#include "unitSimpleRI.hh"
 
 using namespace unit;
 
@@ -23,7 +23,7 @@ cmToKm->inverse()->convert(0.00003); // 3.
 Utilisation des unités dérivées :
 
 ```cpp
-#include "unit.hh"
+#include "unitSimpleRI.hh"
 
 using namespace unit;
 
@@ -43,7 +43,7 @@ km2Tocm2->inverse()->convert(30000000000.); // 3.
 Utilisation des unités dérivées en combinant les dimensions :
 
 ```cpp
-#include "unit.hh"
+#include "unitSimpleRI.hh"
 
 using namespace unit;
 
@@ -74,7 +74,7 @@ gPerM2ToTonPerCm2->inverse()->convert(3e-10); // 3.
 Utilisation des températures (conversions affines et linéaires) :
 
 ```cpp
-#include "unit.hh"
+#include "unitSimpleRI.hh"
 
 using namespace unit;
 
@@ -104,7 +104,7 @@ kPerMToCPerM->inverse()->convert(3); // 3.
 Utilisation des conversions non-décimales :
 
 ```cpp
-#include "unit.hh"
+#include "unitSimpleRI.hh"
 
 using namespace unit;
 
@@ -130,7 +130,7 @@ msToKmh->inverse()->convert(18.0); // 5.0
 ### Réinitialisation du projet, génération de la configuration CodeBlocks et du Makefile, et compilation:
 
 ```bash
-cd unit-simple
+cd unit-simple-ri
 rm -rf bin/ lib/ CMakeFiles/ CMakeCache.txt Makefile cmake_install.cmake
 cmake . -G "CodeBlocks - Unix Makefiles"
 make
@@ -139,13 +139,13 @@ make
 ### Tests
 
 ```bash
-cd unit-simple
+cd unit-simple-ri
 bin/test
 ```
 
 ### Build et test en un script (GNU/Linux)
 
 ```bash
-cd unit-simple
+cd unit-simple-ri
 . build.sh
 ```
