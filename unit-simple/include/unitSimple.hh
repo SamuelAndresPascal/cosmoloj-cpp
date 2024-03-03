@@ -20,10 +20,16 @@ public:
     virtual double convert(double value) const = 0;
     virtual const IUnitConverter* concatenate(const IUnitConverter* converter) const = 0;
 
+    const IUnitConverter* operator~() const
+    {
+      return inverse();
+    }
+
     virtual ~IUnitConverter() {}
 };
 
 class IUnit;
+class IDerivedUnit;
 
 class IFactor {
 
@@ -48,14 +54,29 @@ class IUnit : virtual public IFactor {
     virtual const IFactor* factor(int numerator, int denominator = 1) const = 0;
     virtual const ITransformedUnit* scaleDivide(const double value) const = 0;
 
-    const IUnitConverter& operator>>(const IUnit& target) const
+    const IUnitConverter* operator>>(const IUnit& target) const
     {
-      return *getConverterTo(&target);
+      return getConverterTo(&target);
     }
 
-    const ITransformedUnit& operator+(double value) const
+    const ITransformedUnit* operator+(double value) const
     {
-      return *shift(value);
+      return shift(value);
+    }
+
+    const ITransformedUnit* operator-(double value) const
+    {
+      return shift(-value);
+    }
+
+    const ITransformedUnit* operator*(double value) const
+    {
+      return scaleMultiply(value);
+    }
+
+    const ITransformedUnit* operator/(double value) const
+    {
+      return scaleDivide(value);
     }
 
     virtual ~IUnit() {}
