@@ -45,6 +45,7 @@ target_link_libraries(
 add_executable(
     test
     test/unit-test.cc
+    test/unit-operators-test.cc
     test/test.cc
 )
 
