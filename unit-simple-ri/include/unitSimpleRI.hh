@@ -45,6 +45,8 @@ public:
     virtual int denominator() const override;
     virtual double power() const override;
 
+    virtual const IDerivedUnit* operator*(const IFactor& other) const override;
+
     virtual ~Factor() {}
 
 private:

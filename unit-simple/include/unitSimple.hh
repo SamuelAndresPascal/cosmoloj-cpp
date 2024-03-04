@@ -39,6 +39,8 @@ class IFactor {
     virtual int denominator() const = 0;
     virtual double power() const = 0;
 
+    virtual const IDerivedUnit* operator*(const IFactor& other) const = 0;
+
     virtual ~IFactor() {}
 };
 
@@ -54,9 +56,19 @@ class IUnit : virtual public IFactor {
     virtual const IFactor* factor(int numerator, int denominator = 1) const = 0;
     virtual const ITransformedUnit* scaleDivide(const double value) const = 0;
 
+    const IFactor* operator^(double value) const
+    {
+      return factor(value);
+    }
+
     const IUnitConverter* operator>>(const IUnit& target) const
     {
       return getConverterTo(&target);
+    }
+
+    const IUnitConverter* operator<<(const IUnit& target) const
+    {
+      return target.getConverterTo(this);
     }
 
     const ITransformedUnit* operator+(double value) const

@@ -26,4 +26,9 @@ namespace unit {
   {
     return mNumerator / (double) mDenominator;
   }
+
+  const IDerivedUnit* Factor::operator*(const IFactor& other) const
+  {
+    return new DerivedUnit({this, &other});
+  }
 }
