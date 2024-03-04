@@ -38,6 +38,12 @@ const IFactor* Unit::factor(const int numerator, const int denominator) const
     return new Factor(this, numerator, denominator);
 }
 
+const IDerivedUnit* Unit::operator*(const IFactor& other) const
+{
+    return new DerivedUnit({this, &other});
+}
+
+
 const IUnitConverter* FundamentalUnit::toBase() const
 {
     return UnitConverter::of(1.);

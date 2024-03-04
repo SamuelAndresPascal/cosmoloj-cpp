@@ -68,6 +68,8 @@ public:
     virtual const ITransformedUnit* scaleMultiply(double value) const override;
     virtual const IFactor* factor(int numerator, int denominator = 1) const override;
     virtual const ITransformedUnit* scaleDivide(const double value) const override;
+    
+    virtual const IDerivedUnit* operator*(const IFactor& other) const override;
 
     virtual ~Unit() {}
 

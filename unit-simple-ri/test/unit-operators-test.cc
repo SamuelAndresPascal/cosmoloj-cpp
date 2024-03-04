@@ -51,8 +51,8 @@ public:
 
     const IUnit* m = new FundamentalUnit();
     const IUnit* kg = new FundamentalUnit();
-    const IFactor* g = *kg / 1000;
-    const IFactor* ton = *kg * 1000;
+    const IUnit* g = *kg / 1000;
+    const IUnit* ton = *kg * 1000;
     const IUnit* gPerM2 = *g * *(*m ^ -2);
     const IUnit* km = *m * 1000;
     const IUnit* tonPerKm2 = *ton * *(*km ^ -2);
@@ -118,7 +118,7 @@ public:
   void speed()
   {
     const IUnit* m = new FundamentalUnit();
-    const IFactor* km = *m * 1000.0;
+    const IUnit* km = *m * 1000.0;
 
     const IUnit* s = new FundamentalUnit();
     const IUnit* h = *s * 3600.0;

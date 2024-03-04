@@ -56,6 +56,8 @@ class IUnit : virtual public IFactor {
     virtual const IFactor* factor(int numerator, int denominator = 1) const = 0;
     virtual const ITransformedUnit* scaleDivide(const double value) const = 0;
 
+    virtual const IDerivedUnit* operator*(const IFactor& other) const = 0;
+
     const IFactor* operator^(double value) const
     {
       return factor(value);
