@@ -202,9 +202,9 @@ using namespace unit;
 
 const IUnit* m = new FundamentalUnit();
 const IUnit* km = *m * 1000;
-const IUnit* km2 = new DerivedUnit({*km ^ 2});
+const IUnit* km2 = *km ^ 2;
 const IUnit* cm = *m / 100;
-const IUnit* cm2 = new DerivedUnit({*cm ^ 2});
+const IUnit* cm2 = *cm ^ 2;
 const IUnitConverter* km2Tocm2 = *km2 >> *cm2;
 
 km2Tocm2->convert(3); // 30000000000.
@@ -231,11 +231,11 @@ const IUnit* m = new FundamentalUnit();
 const IUnit* kg = new FundamentalUnit();
 const IUnit* g = *kg / 1000;
 const IUnit* ton = *kg * 1000;
-const IUnit* gPerM2 = new DerivedUnit({g, *m ^ -2});
+const IUnit* gPerM2 = *g * *(*m ^ -2);
 const IUnit* km = *m * 1000;
-const IUnit* tonPerKm2 = new DerivedUnit({ton, *km ^ -2});
+const IUnit* tonPerKm2 = *ton * *(~*km) ^ 2;
 const IUnit* cm = *m / 100;
-const IUnit* tonPerCm2 = new DerivedUnit({ton, *cm ^ -2});
+const IUnit* tonPerCm2 = *ton / *cm ^ 2;
 const IUnitConverter* gPerM2ToTonPerKm2 = *gPerM2 >> *tonPerKm2);
 const IUnitConverter* gPerM2ToTonPerCm2 = *tonPerCm2 << *gPerM2;
 
@@ -284,8 +284,8 @@ kToC->convert(2); // -271.15
 
 // en combinaison avec d'autres unités, les conversions d'unités de températures doivent devenir linéaires
 const IUnit* m = new FundamentalUnit();
-const IUnit* cPerM = new DerivedUnit({c, *m ^ -1});
-const IUnit* kPerM = new DerivedUnit({k, *m ^ -1});
+const IUnit* cPerM = *c / *m;
+const IUnit* kPerM = *k / *m;
 const IUnitConverter* kPerMToCPerM = *kPerM >> *cPerM;
 kPerMToCPerM->convert(3); // 3.
 ~(*kPerMToCPerM)->convert(3); // 3.
@@ -314,8 +314,8 @@ const IUnit* km = *m * 1000.0;
 const IUnit* s = new FundamentalUnit();
 const IUnit* h = *s * 3600.0;
 
-const IUnit* ms = new DerivedUnit({m, *s ^ -1});
-const IUnit* kmh = new DerivedUnit({km, *h ^ -1});
+const IUnit* ms = *m / *s;
+const IUnit* kmh = *km / *h;
 
 const IUnitConverter* msToKmh = *ms >> *kmh;
 
