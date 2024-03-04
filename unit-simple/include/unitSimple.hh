@@ -41,6 +41,7 @@ class IFactor {
 
     virtual const IDerivedUnit* operator*(const IFactor& other) const = 0;
     virtual const IDerivedUnit* operator/(const IFactor& other) const = 0;
+    virtual const IDerivedUnit* operator~() const = 0;
 
     virtual ~IFactor() {}
 };
@@ -60,6 +61,7 @@ class IUnit : virtual public IFactor {
     virtual const IDerivedUnit* operator*(const IFactor& other) const = 0;
     virtual const IDerivedUnit* operator/(const IFactor& other) const = 0;
     virtual const IDerivedUnit* operator^(double value) const = 0;
+    virtual const IDerivedUnit* operator~() const = 0;
 
     const IUnitConverter* operator>>(const IUnit& target) const
     {

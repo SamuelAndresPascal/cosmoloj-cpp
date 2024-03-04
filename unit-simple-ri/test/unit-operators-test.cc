@@ -55,9 +55,9 @@ public:
     const IUnit* ton = *kg * 1000;
     const IUnit* gPerM2 = *g * *(*m ^ -2);
     const IUnit* km = *m * 1000;
-    const IUnit* tonPerKm2 = *ton / *(*km ^ 2);
+    const IUnit* tonPerKm2 = *ton * *(*(~*km) ^ 2);
     const IUnit* cm = *m / 100;
-    const IUnit* tonPerCm2 = *ton * *(*cm ^ -2);
+    const IUnit* tonPerCm2 = *ton / *(*cm ^ 2);
     const IUnitConverter* gPerM2ToTonPerKm2 = *gPerM2 >> *tonPerKm2;
     const IUnitConverter* gPerM2ToTonPerCm2 = *tonPerCm2 << *gPerM2;
 

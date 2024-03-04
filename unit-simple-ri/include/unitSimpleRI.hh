@@ -48,6 +48,7 @@ public:
 
     virtual const IDerivedUnit* operator*(const IFactor& other) const override;
     virtual const IDerivedUnit* operator/(const IFactor& other) const override;
+    virtual const IDerivedUnit* operator~() const override;
 
     virtual ~Factor() {}
 
@@ -74,6 +75,7 @@ public:
     virtual const IDerivedUnit* operator^(double value) const override; 
     virtual const IDerivedUnit* operator*(const IFactor& other) const override;
     virtual const IDerivedUnit* operator/(const IFactor& other) const override;
+    virtual const IDerivedUnit* operator~() const override;
 
     virtual ~Unit() {}
 

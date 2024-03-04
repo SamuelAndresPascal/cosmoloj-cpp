@@ -42,4 +42,8 @@ namespace unit {
     return new DerivedUnit({this, new Factor(&other, -1)});
   }
 
+  const IDerivedUnit* Factor::operator~() const
+  {
+    return new DerivedUnit({new Factor(this, -1)});
+  }
 }

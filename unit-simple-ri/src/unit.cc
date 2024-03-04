@@ -53,6 +53,11 @@ const IDerivedUnit* Unit::operator^(double value) const
     return new DerivedUnit({new Factor(this, value)});
 }
 
+const IDerivedUnit* Unit::operator~() const
+{
+    return new DerivedUnit({new Factor(this, -1)});
+}
+
 const IUnitConverter* FundamentalUnit::toBase() const
 {
     return UnitConverter::of(1.);
