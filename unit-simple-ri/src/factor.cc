@@ -7,6 +7,11 @@ namespace unit {
   {
   }
 
+  Factor::Factor(const IFactor* dim, const int numerator, const int denominator)
+	  : mNumerator(dim->numerator() * numerator), mDenominator(dim->denominator() * denominator), mUnit(dim->dim())
+  {
+  }
+
   const IUnit* Factor::dim() const
   {
     return mUnit;
@@ -31,4 +36,10 @@ namespace unit {
   {
     return new DerivedUnit({this, &other});
   }
+
+  const IDerivedUnit* Factor::operator/(const IFactor& other) const
+  {
+    return new DerivedUnit({this, new Factor(&other, -1)});
+  }
+
 }

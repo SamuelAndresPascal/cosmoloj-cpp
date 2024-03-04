@@ -38,7 +38,8 @@ class Factor : public virtual IFactor
 {
 
 public:
-    Factor(const IUnit* unit, int numerator, int denominator);
+    Factor(const IUnit* unit, int numerator, int denominator = 1);
+    Factor(const IFactor* dim, int numerator, int denominator = 1);
 
     virtual const IUnit* dim() const override;
     virtual int numerator() const override;
@@ -46,6 +47,7 @@ public:
     virtual double power() const override;
 
     virtual const IDerivedUnit* operator*(const IFactor& other) const override;
+    virtual const IDerivedUnit* operator/(const IFactor& other) const override;
 
     virtual ~Factor() {}
 
@@ -68,8 +70,10 @@ public:
     virtual const ITransformedUnit* scaleMultiply(double value) const override;
     virtual const IFactor* factor(int numerator, int denominator = 1) const override;
     virtual const ITransformedUnit* scaleDivide(const double value) const override;
-    
+   
+    virtual const IDerivedUnit* operator^(double value) const override; 
     virtual const IDerivedUnit* operator*(const IFactor& other) const override;
+    virtual const IDerivedUnit* operator/(const IFactor& other) const override;
 
     virtual ~Unit() {}
 

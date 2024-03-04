@@ -43,6 +43,15 @@ const IDerivedUnit* Unit::operator*(const IFactor& other) const
     return new DerivedUnit({this, &other});
 }
 
+const IDerivedUnit* Unit::operator/(const IFactor& other) const
+{
+    return new DerivedUnit({this, new Factor(&other, -1)});
+}
+
+const IDerivedUnit* Unit::operator^(double value) const
+{
+    return new DerivedUnit({new Factor(this, value)});
+}
 
 const IUnitConverter* FundamentalUnit::toBase() const
 {

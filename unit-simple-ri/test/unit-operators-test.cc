@@ -30,9 +30,9 @@ public:
   {
     const IUnit* m = new FundamentalUnit();
     const IUnit* km = *m * 1000;
-    const IUnit* km2 = new DerivedUnit({*km ^ 2});
+    const IUnit* km2 = *km ^ 2;
     const IUnit* cm = *m / 100;
-    const IUnit* cm2 = new DerivedUnit({*cm ^ 2});
+    const IUnit* cm2 = *cm ^ 2;
     const IUnitConverter* km2Tocm2 = *km2 >> *cm2;
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(30000000000., km2Tocm2->convert(3), 1e-10);
@@ -55,7 +55,7 @@ public:
     const IUnit* ton = *kg * 1000;
     const IUnit* gPerM2 = *g * *(*m ^ -2);
     const IUnit* km = *m * 1000;
-    const IUnit* tonPerKm2 = *ton * *(*km ^ -2);
+    const IUnit* tonPerKm2 = *ton / *(*km ^ 2);
     const IUnit* cm = *m / 100;
     const IUnit* tonPerCm2 = *ton * *(*cm ^ -2);
     const IUnitConverter* gPerM2ToTonPerKm2 = *gPerM2 >> *tonPerKm2;
@@ -100,8 +100,8 @@ public:
 
     // en combinaison avec d'autres unités, les conversions d'unités de températures doivent devenir linéaires
     const IUnit* m = new FundamentalUnit();
-    const IUnit* cPerM = new DerivedUnit({c, *m ^ -1});
-    const IUnit* kPerM = new DerivedUnit({k, *m ^ -1});
+    const IUnit* cPerM = *c / *m;
+    const IUnit* kPerM = *k / *m;
     const IUnitConverter* kPerMToCPerM = *kPerM >> *cPerM;
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., kPerMToCPerM->convert(3), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., (~*kPerMToCPerM)->convert(3), 1e-10);
@@ -123,8 +123,8 @@ public:
     const IUnit* s = new FundamentalUnit();
     const IUnit* h = *s * 3600.0;
 
-    const IUnit* ms = new DerivedUnit({*m ^ -1});
-    const IUnit* kmh = *km * *(*h ^ -1);
+    const IUnit* ms = *s / *m;
+    const IUnit* kmh = *km / *h;
 
     const IUnitConverter* msToKmh = *ms >> *kmh;
 
