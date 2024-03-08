@@ -169,7 +169,7 @@ delete m;
 ```
 
 
-## Utilisation avec surcharche des opérateurs
+## Utilisation avec surcharge des opérateurs
 
 Utilisation des unités transformées :
 
