@@ -1,5 +1,8 @@
 # Simple Unit (implémentation C++)
 
+* [Utilisation standard](#Utilisation-standard)
+* [Utilisation avec surcharge des opérateurs](#Utilisation-avec-surcharge-des-opérateurs)
+
 ## Utilisation standard
 
 Utilisation des unités transformées :
