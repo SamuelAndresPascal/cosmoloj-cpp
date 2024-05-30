@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(simple-unit-ri)
+project(learning-ri)
 
 cmake_policy(VERSION 2.8.1)
 
@@ -16,7 +16,7 @@ endif()
 include_directories(
     include
     /usr/include/cppunit
-    ../unit-simple/include
+    ../learning/include
 )
 
 
@@ -27,19 +27,29 @@ file(
 )
 
 add_library(
-    unit-simple-ri
+    learning-ri
     SHARED
     ${source_files}
 )
 
 add_executable(
-    unit-simple-ri-demo
+    learning-ri-demo
     demo/unit-simple-ri-demo.cc
 )
 
 target_link_libraries(
-    unit-simple-ri-demo
-    unit-simple-ri
+    learning-ri-demo
+    learning-ri
+)
+
+add_executable(
+    polymorphysm-demo
+    demo/polymorphysm-demo.cc
+)
+
+target_link_libraries(
+    polymorphysm-demo
+    learning-ri
 )
 
 add_executable(
@@ -51,7 +61,7 @@ add_executable(
 
 target_link_libraries(
     test
-    unit-simple-ri
+    learning-ri
     cppunit
 )
 
