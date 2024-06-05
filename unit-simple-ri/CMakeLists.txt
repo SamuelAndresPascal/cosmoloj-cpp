@@ -43,16 +43,25 @@ target_link_libraries(
 )
 
 add_executable(
-    test
+    su-test
     test/unit-test.cc
     test/unit-operators-test.cc
     test/test.cc
 )
 
 target_link_libraries(
-    test
+    su-test
     unit-simple-ri
     cppunit
+)
+
+enable_testing()
+
+add_test(NAME su-test COMMAND su-test)
+
+set_tests_properties(
+    su-test
+    PROPERTIES PASS_REGULAR_EXPRESSION "OK"
 )
 
 

@@ -22,7 +22,7 @@ test-unit-simple:
     - cd unit-simple-ri
     - cmake .
     - make
-    - bin/test
+    - make test
   artifacts:
     expire_in: 2 days
 
