@@ -1,0 +1,9 @@
+build-learning:
+  stage: build
+  script:
+    - cd learning
+    - cmake .
+    - make
+  artifacts:
+    expire_in: 2 days
+

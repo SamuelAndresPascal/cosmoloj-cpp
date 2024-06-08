@@ -1,0 +1,19 @@
+build-learning-ri:
+  stage: build
+  script:
+    - cd learning-ri
+    - cmake .
+    - make
+  artifacts:
+    expire_in: 2 days
+
+test-learning-ri:
+  stage: test
+  script:
+    - cd learning-ri
+    - cmake .
+    - make
+    - make test
+  artifacts:
+    expire_in: 2 days
+

@@ -6,25 +6,12 @@ stages:
   - build
   - test
   - sonar
-
-build-unit-simple-ri:
-  stage: build
-  script:
-    - cd unit-simple-ri
-    - cmake .
-    - make
-  artifacts:
-    expire_in: 2 days
-
-test-unit-simple:
-  stage: test
-  script:
-    - cd unit-simple-ri
-    - cmake .
-    - make
-    - make test
-  artifacts:
-    expire_in: 2 days
+  
+include:
+  - local: 'learning/.gitlab-ci.yml'
+  - local: 'learning-ri/.gitlab-ci.yml'
+  - local: 'unit-simple/.gitlab-ci.yml'
+  - local: 'unit-simple-ri/.gitlab-ci.yml'
 
 sonar:
   stage: sonar
@@ -32,3 +19,4 @@ sonar:
     - $SONAR_SCANNER_HOME/bin/sonar-scanner -Dsonar.login=$SONAR_LOGIN
   artifacts:
     expire_in: 2 days
+
