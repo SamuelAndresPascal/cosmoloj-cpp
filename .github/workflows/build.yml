@@ -1,0 +1,18 @@
+name: build
+run-name: ${{ github.actor }}
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '30 5 * * 0'
+
+jobs:
+  build__unit_simple_ri:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          working-directory: unit-simple-ri
+      - run: . build.sh
