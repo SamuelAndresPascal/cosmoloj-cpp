@@ -13,5 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: sudo apt install -y libcppunit-dev
       - working-directory: ./unit-simple-ri
         run: . build.sh
