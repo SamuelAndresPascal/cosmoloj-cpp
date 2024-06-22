@@ -16,3 +16,10 @@ jobs:
       - run: sudo apt install -y libcppunit-dev
       - working-directory: ./unit-simple-ri
         run: . build.sh
+  build__learning_ri:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt install -y libcppunit-dev
+      - working-directory: ./learning-ri
+        run: . build.sh
