@@ -13,6 +13,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          working-directory: unit-simple-ri
-      - run: . build.sh
+      - working-directory: ./unit-simple-ri
+        run: . build.sh
