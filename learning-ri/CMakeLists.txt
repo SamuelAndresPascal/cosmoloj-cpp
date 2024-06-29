@@ -33,22 +33,22 @@ add_library(
 )
 
 add_executable(
-    learning-ri-demo
+    unit-simple-ri-demo
     demo/unit-simple-ri-demo.cc
 )
 
 target_link_libraries(
-    learning-ri-demo
+    unit-simple-ri-demo
     learning-ri
 )
 
 add_executable(
-    polymorphysm-demo
-    demo/polymorphysm-demo.cc
+    polymorphism-demo
+    demo/polymorphism-demo.cc
 )
 
 target_link_libraries(
-    polymorphysm-demo
+    polymorphism-demo
     learning-ri
 )
 
