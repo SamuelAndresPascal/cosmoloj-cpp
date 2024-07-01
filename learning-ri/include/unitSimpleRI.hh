@@ -1,5 +1,5 @@
-#ifndef UNIT_SIMPLE_RI_HH_INCLUDED
-#define UNIT_SIMPLE_RI_HH_INCLUDED
+#ifndef UNIT_SIMPLE_RI_HH
+#define UNIT_SIMPLE_RI_HH
 
 #include <list>
 #include "unitSimple.hh"
@@ -71,8 +71,8 @@ public:
     virtual const ITransformedUnit* scaleMultiply(double value) const override;
     virtual const IFactor* factor(int numerator, int denominator = 1) const override;
     virtual const ITransformedUnit* scaleDivide(const double value) const override;
-   
-    virtual const IDerivedUnit* operator^(double value) const override; 
+
+    virtual const IDerivedUnit* operator^(double value) const override;
     virtual const IDerivedUnit* operator*(const IFactor& other) const override;
     virtual const IDerivedUnit* operator/(const IFactor& other) const override;
     virtual const IDerivedUnit* operator~() const override;
@@ -126,4 +126,4 @@ private:
 };
 
 }
-#endif /* UNIT_SIMPLE_RI_HH_INCLUDED */
+#endif /* UNIT_SIMPLE_RI_HH */

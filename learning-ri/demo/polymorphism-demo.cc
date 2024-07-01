@@ -1,34 +1,15 @@
 #include <iostream>
-#include "unitSimpleRI.hh"
-
-using namespace std;
-using namespace unit;
+#include "polymorphismRI.hh"
 
 
 int main(int argc, char *argv[])
 {
+  const Parent p;
+  std::cout << p.getInt() << std::endl;
 
-  const FundamentalUnit m;
-  const ITransformedUnit* km = m.scaleMultiply(1000.);
-  const ITransformedUnit* cm = m.scaleDivide(100.);
+  const Child c;
+  std::cout << c.getInt() << std::endl;
 
-  cout << km->toReference()->scale() << endl;
-
-  const IUnitConverter* kmToCm = km->getConverterTo(cm);
-
-  cout << kmToCm->convert(10) << endl;
-
-  const FundamentalUnit s;
-  const ITransformedUnit* h = s.scaleMultiply(3600.);
-  const ITransformedUnit* min = s.scaleMultiply(60.);
-
-  const DerivedUnit ms = DerivedUnit({&m, s.factor(-1)});
-  const DerivedUnit kmh = DerivedUnit({km, h->factor(-1)});
-
-  const IUnitConverter* msToKmh = ms.getConverterTo(&kmh);
-
-  cout << msToKmh->convert(100) << endl;
-
-  cout << "Hello World!" << endl;
+  std::cout << "Hello World!" << std::endl;
   return 0;
 }

@@ -11,6 +11,7 @@ add_library(
     learning
     SHARED
     include/unitSimple.hh
+    include/polymorphism.hh
 )
 
 set_target_properties(

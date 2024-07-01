@@ -23,6 +23,7 @@ include_directories(
 file(
     GLOB
     source_files
+    include/*
     src/*
 )
 
