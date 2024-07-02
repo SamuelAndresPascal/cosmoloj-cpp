@@ -3,4 +3,7 @@ cmake . -G "CodeBlocks - Unix Makefiles"
 make
 make test
 ctest
-bin/learning-ri-demo
+bin/polymorphism-demo
+bin/array-demo
+bin/unit-simple-ri-demo
+
