@@ -1,6 +1,6 @@
 #include <math.h>
 #include "unitSimpleRI.hh"
-
+#include <iostream>
 namespace unit
 {
 
@@ -8,12 +8,12 @@ Unit::Unit() : Factor(this, 1, 1)
 {
 }
 
-const IUnitConverter* Unit::affine(const IUnit* source, const IUnit* target)
+const IUnitConverter& Unit::affine(const IUnit* source, const IUnit* target)
 {
-    return target->toBase()->inverse()->concatenate(source->toBase());
+    return target->toBase().inverse().concatenate(source->toBase());
 }
 
-const IUnitConverter* Unit::getConverterTo(const IUnit* target) const
+const IUnitConverter& Unit::getConverterTo(const IUnit* target) const
 {
     return affine(this, target);
 }
@@ -58,7 +58,7 @@ const IDerivedUnit* Unit::operator~() const
     return new DerivedUnit({new Factor(this, -1)});
 }
 
-const IUnitConverter* FundamentalUnit::toBase() const
+const IUnitConverter& FundamentalUnit::toBase() const
 {
     return UnitConverter::of(1.);
 }
@@ -67,11 +67,11 @@ FundamentalUnit::FundamentalUnit() : Unit()
 {
 }
 
-TransformedUnit::TransformedUnit(const IUnitConverter* toReference, const IUnit* refUnit) : mToReference(toReference), mReference(refUnit)
+TransformedUnit::TransformedUnit(const IUnitConverter& toReference, const IUnit* refUnit) : mToReference(toReference), mReference(refUnit)
 {
 }
 
-const IUnitConverter* TransformedUnit::toReference() const
+const IUnitConverter& TransformedUnit::toReference() const
 {
     return mToReference;
 }
@@ -81,9 +81,9 @@ const IUnit* TransformedUnit::reference() const
     return mReference;
 }
 
-const IUnitConverter* TransformedUnit::toBase() const
+const IUnitConverter& TransformedUnit::toBase() const
 {
-    return this->reference()->toBase()->concatenate(this->toReference());
+    return this->reference()->toBase().concatenate(this->toReference());
 }
 
 DerivedUnit::DerivedUnit(const list<const IFactor*> definition) : mDefinition(definition)
@@ -95,16 +95,14 @@ const list<const IFactor*> DerivedUnit::definition() const
     return mDefinition;
 }
 
-const IUnitConverter* DerivedUnit::toBase() const
+const IUnitConverter& DerivedUnit::toBase() const
 {
 
-    const IUnitConverter* transform = UnitConverter::of(1.);
+    IUnitConverter& transform = const_cast<IUnitConverter&>(UnitConverter::of(1.));
 
     for (const IFactor* factor : definition())
     {
-        const IUnitConverter* oldTransform = transform;
-        transform = factor->dim()->toBase()->linearPow(factor->power())->concatenate(transform);
-        delete oldTransform;
+        transform = const_cast<IUnitConverter&>(factor->dim()->toBase().linearPow(factor->power()).concatenate(transform));
     }
     return transform;
 }
