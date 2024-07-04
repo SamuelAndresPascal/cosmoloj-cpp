@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
   cout << km->toReference()->scale() << endl;
 
-  const IUnitConverter* kmToCm = km->getConverterTo(cm);
+  const IUnitConverter* kmToCm = km->getConverterTo(*cm);
 
   cout << kmToCm->convert(10) << endl;
 
@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
   const IDerivedUnit* ms = new DerivedUnit({m, s->factor(-1)});
   const IDerivedUnit* kmh = new DerivedUnit({km, h->factor(-1)});
 
-  const IUnitConverter* msToKmh = ms->getConverterTo(kmh);
+  const IUnitConverter* msToKmh = ms->getConverterTo(*kmh);
 
   cout << msToKmh->convert(100) << endl;
 

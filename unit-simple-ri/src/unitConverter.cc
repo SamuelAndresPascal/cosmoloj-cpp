@@ -61,17 +61,17 @@ namespace unit {
         }
       }
 
-      double UnitConverter::convert(double value) const
+      double UnitConverter::convert(const double value) const
       {
         return value * this->mScale + this->mOffset;
       }
 
-      const IUnitConverter* UnitConverter::concatenate(const IUnitConverter* converter) const
+      const IUnitConverter* UnitConverter::concatenate(const IUnitConverter& converter) const
       {
-        return new UnitConverter(converter->scale() * this->mScale, this->convert(converter->offset()));
+        return new UnitConverter(converter.scale() * this->mScale, this->convert(converter.offset()));
       }
 
-      const UnitConverter* UnitConverter::of(double scale, double offset)
+      const UnitConverter* UnitConverter::of(const double scale, const double offset)
       {
         return new UnitConverter(scale, offset);
       }

@@ -10,12 +10,12 @@ Unit::Unit() : Factor(this, 1, 1)
 
 const IUnitConverter* Unit::affine(const IUnit* source, const IUnit* target)
 {
-    return target->toBase()->inverse()->concatenate(source->toBase());
+    return target->toBase()->inverse()->concatenate(*(source->toBase()));
 }
 
-const IUnitConverter* Unit::getConverterTo(const IUnit* target) const
+const IUnitConverter* Unit::getConverterTo(const IUnit& target) const
 {
-    return affine(this, target);
+    return affine(this, &target);
 }
 
 const ITransformedUnit* Unit::shift(const double value) const
@@ -48,7 +48,7 @@ const IDerivedUnit* Unit::operator/(const IFactor& other) const
     return new DerivedUnit({this, new Factor(&other, -1)});
 }
 
-const IDerivedUnit* Unit::operator^(double value) const
+const IDerivedUnit* Unit::operator^(const double value) const
 {
     return new DerivedUnit({new Factor(this, value)});
 }
@@ -83,7 +83,7 @@ const IUnit* TransformedUnit::reference() const
 
 const IUnitConverter* TransformedUnit::toBase() const
 {
-    return this->reference()->toBase()->concatenate(this->toReference());
+    return this->reference()->toBase()->concatenate(*(this->toReference()));
 }
 
 DerivedUnit::DerivedUnit(const list<const IFactor*> definition) : mDefinition(definition)
@@ -103,7 +103,7 @@ const IUnitConverter* DerivedUnit::toBase() const
     for (const IFactor* factor : definition())
     {
         const IUnitConverter* oldTransform = transform;
-        transform = factor->dim()->toBase()->linearPow(factor->power())->concatenate(transform);
+        transform = factor->dim()->toBase()->linearPow(factor->power())->concatenate(*transform);
         delete oldTransform;
     }
     return transform;
