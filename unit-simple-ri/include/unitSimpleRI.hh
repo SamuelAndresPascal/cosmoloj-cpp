@@ -31,7 +31,7 @@ private:
     const IUnitConverter* mInverse;
     const bool mDestructInverse;
     UnitConverter(const double scale, const double offset);
-    UnitConverter(const double scale, const double offset, const IUnitConverter* inverse);
+    UnitConverter(const double scale, const double offset, const IUnitConverter& inverse);
 };
 
 class Factor : public virtual IFactor

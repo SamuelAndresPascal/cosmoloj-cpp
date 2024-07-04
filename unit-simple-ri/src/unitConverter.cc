@@ -3,13 +3,13 @@
 
 namespace unit {
 
-      UnitConverter::UnitConverter(double scale, double offset, const IUnitConverter* inverse) : mScale(scale), mOffset(offset), mDestructInverse(false), mInverse(inverse)
+      UnitConverter::UnitConverter(double scale, double offset, const IUnitConverter& inverse) : mScale(scale), mOffset(offset), mDestructInverse(false), mInverse(&inverse)
       {
       }
 
       UnitConverter::UnitConverter(double scale, double offset) : mScale(scale), mOffset(offset), mDestructInverse(true)
       {
-        mInverse = new UnitConverter(1 / mScale, -mOffset / mScale, this);
+        mInverse = new UnitConverter(1 / mScale, -mOffset / mScale, *this);
       }
 
       UnitConverter::~UnitConverter()
