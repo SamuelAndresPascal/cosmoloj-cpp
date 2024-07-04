@@ -6,7 +6,7 @@ int main( int argc, char **argv)
 {
   CppUnit::TextUi::TestRunner runner;
   runner.addTest( SimpleUnitTest::suite() );
-  //runner.addTest( SimpleUnitOperatorsTest::suite() );
+  runner.addTest( SimpleUnitOperatorsTest::suite() );
   runner.run();
   return 0;
 }

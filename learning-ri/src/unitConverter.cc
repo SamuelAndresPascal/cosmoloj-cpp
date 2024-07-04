@@ -30,36 +30,34 @@ namespace unit {
         return this->mOffset;
       }
 
-      const IUnitConverter& UnitConverter::inverse() const
+      const IUnitConverter* UnitConverter::inverse() const
       {
-        return *(this->mInverse);
+        return this->mInverse;
       }
 
-      const IUnitConverter& UnitConverter::linear() const
+      const IUnitConverter* UnitConverter::linear() const
       {
         // on fait volontairement ici une égalité exacte sur un double
         if (this->mOffset == 0.0)
         {
-          return *this;
+          return this;
         }
         else
         {
-          static const IUnitConverter& c = UnitConverter(this->mScale, 0.);
-          return c;
+          return new UnitConverter(this->mScale, 0.);
         }
       }
 
-      const IUnitConverter& UnitConverter::linearPow(const double e) const
+      const IUnitConverter* UnitConverter::linearPow(const double e) const
       {
         // on fait volontairement ici une égalité exacte sur un double
         if (this->mOffset == 0.0 && e == 1.0)
         {
-          return *this;
+          return this;
         }
         else
         {
-          static const IUnitConverter& c = UnitConverter(pow(this->mScale, e), 0.);
-          return c;
+          return new UnitConverter(pow(this->mScale, e), 0.);
         }
       }
 
@@ -68,15 +66,13 @@ namespace unit {
         return value * this->mScale + this->mOffset;
       }
 
-      const IUnitConverter& UnitConverter::concatenate(const IUnitConverter& converter) const
+      const IUnitConverter* UnitConverter::concatenate(const IUnitConverter* converter) const
       {
-        static const IUnitConverter& c = UnitConverter(converter.scale() * this->mScale, this->convert(converter.offset()));
-        return c;
+        return new UnitConverter(converter->scale() * this->mScale, this->convert(converter->offset()));
       }
 
-      const IUnitConverter& UnitConverter::of(double scale, double offset)
+      const UnitConverter* UnitConverter::of(double scale, double offset)
       {
-        static const IUnitConverter& c = UnitConverter(scale, offset);
-        return c;
+        return new UnitConverter(scale, offset);
       }
 }
