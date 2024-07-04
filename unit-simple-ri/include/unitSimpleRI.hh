@@ -15,7 +15,7 @@ class UnitConverter : public IUnitConverter
 public:
     virtual double scale() const override;
     virtual double offset() const override;
-    virtual const IUnitConverter* inverse() const override;
+    virtual const IUnitConverter& inverse() const override;
     virtual const IUnitConverter* linear() const override;
     virtual const IUnitConverter* linearPow(const double pow) const override;
     virtual double convert(const double value) const override;

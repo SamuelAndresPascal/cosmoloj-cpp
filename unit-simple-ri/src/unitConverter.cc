@@ -30,9 +30,9 @@ namespace unit {
         return this->mOffset;
       }
 
-      const IUnitConverter* UnitConverter::inverse() const
+      const IUnitConverter& UnitConverter::inverse() const
       {
-        return this->mInverse;
+        return *(this->mInverse);
       }
 
       const IUnitConverter* UnitConverter::linear() const

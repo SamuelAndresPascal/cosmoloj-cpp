@@ -18,8 +18,8 @@ public:
     const IUnitConverter* cmToKm = *cm >> *km;
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(0.00003, cmToKm->convert(3), 1e-10);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(3., (~*cmToKm)->convert(0.00003), 1e-10);
- 
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(3., (~*cmToKm).convert(0.00003), 1e-10);
+
     delete cmToKm;
     delete cm;
     delete km;
@@ -36,7 +36,7 @@ public:
     const IUnitConverter* km2Tocm2 = *km2 >> *cm2;
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(30000000000., km2Tocm2->convert(3), 1e-10);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(3., (~*km2Tocm2)->convert(30000000000.), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(3., (~*km2Tocm2).convert(30000000000.), 1e-10);
 
     delete km2Tocm2;
     delete cm2;
@@ -62,13 +62,13 @@ public:
     const IUnitConverter* gPerM2ToTonPerCm2 = *tonPerCm2 << *gPerM2;
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(1., gPerM2ToTonPerKm2->convert(1.), 1e-10);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(3., (~*gPerM2ToTonPerKm2)->convert(3.), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(3., (~*gPerM2ToTonPerKm2).convert(3.), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(1e-10, gPerM2ToTonPerCm2->convert(1.), 1e-20);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3e-10, gPerM2ToTonPerCm2->convert(3.), 1e-20);
     CPPUNIT_ASSERT_EQUAL(0., gPerM2ToTonPerCm2->offset());
     CPPUNIT_ASSERT_EQUAL(1e-10, gPerM2ToTonPerCm2->scale());
-    CPPUNIT_ASSERT_EQUAL(-0., (~*gPerM2ToTonPerCm2)->offset());
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(3., (~*gPerM2ToTonPerCm2)->convert(3e-10), 1e-10);
+    CPPUNIT_ASSERT_EQUAL(-0., (~*gPerM2ToTonPerCm2).offset());
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(3., (~*gPerM2ToTonPerCm2).convert(3e-10), 1e-10);
 
     delete gPerM2ToTonPerCm2;
     delete gPerM2ToTonPerKm2;
@@ -92,11 +92,11 @@ public:
 
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-273.15, kToC->convert(0), 1e-10);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(273.15, (~*kToC)->convert(0), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(273.15, (~*kToC).convert(0), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-272.15, kToC->convert(1), 1e-10);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(274.15, (~*kToC)->convert(1), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(274.15, (~*kToC).convert(1), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-271.15, kToC->convert(2), 1e-10);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(275.15, (~*kToC)->convert(2), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(275.15, (~*kToC).convert(2), 1e-10);
 
     // en combinaison avec d'autres unités, les conversions d'unités de températures doivent devenir linéaires
     const IUnit* m = new FundamentalUnit();
@@ -104,7 +104,7 @@ public:
     const IUnit* kPerM = *k / *m;
     const IUnitConverter* kPerMToCPerM = *kPerM >> *cPerM;
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., kPerMToCPerM->convert(3), 1e-10);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(3., (~*kPerMToCPerM)->convert(3), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(3., (~*kPerMToCPerM).convert(3), 1e-10);
 
     delete kPerMToCPerM;
     delete kPerM;
@@ -129,7 +129,7 @@ public:
     const IUnitConverter* msToKmh = *ms >> *kmh;
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(360.0, msToKmh->convert(100.0), 1e-10);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(5.0, (~*msToKmh)->convert(18.0), 1e-10);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(5.0, (~*msToKmh).convert(18.0), 1e-10);
 
     delete msToKmh;
     delete kmh;

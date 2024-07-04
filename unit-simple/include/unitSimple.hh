@@ -1,5 +1,5 @@
-#ifndef UNIT_SIMPLE_HH_INCLUDED
-#define UNIT_SIMPLE_HH_INCLUDED
+#ifndef UNIT_SIMPLE_HH
+#define UNIT_SIMPLE_HH
 
 #include <list>
 
@@ -12,13 +12,13 @@ class IUnitConverter
 public:
     virtual double scale() const = 0;
     virtual double offset() const = 0;
-    virtual const IUnitConverter* inverse() const = 0;
+    virtual const IUnitConverter& inverse() const = 0;
     virtual const IUnitConverter* linear() const = 0;
     virtual const IUnitConverter* linearPow(const double pow) const = 0;
     virtual double convert(const double value) const = 0;
     virtual const IUnitConverter* concatenate(const IUnitConverter& converter) const = 0;
 
-    const IUnitConverter* operator~() const
+    const IUnitConverter& operator~() const
     {
       return inverse();
     }
@@ -120,4 +120,4 @@ public:
 }
 
 
-#endif // UNIT_SIMPLE_HH_INCLUDED
+#endif // UNIT_SIMPLE_HH
