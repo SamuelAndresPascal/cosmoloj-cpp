@@ -4,7 +4,7 @@
 namespace unit
 {
 
-Unit::Unit() : Factor(this, 1, 1)
+Unit::Unit() : Factor(*this, 1, 1)
 {
 }
 
@@ -35,7 +35,7 @@ const ITransformedUnit* Unit::scaleDivide(const double value) const
 
 const IFactor* Unit::factor(const int numerator, const int denominator) const
 {
-    return new Factor(this, numerator, denominator);
+    return new Factor(*this, numerator, denominator);
 }
 
 const IDerivedUnit* Unit::operator*(const IFactor& other) const
@@ -45,17 +45,17 @@ const IDerivedUnit* Unit::operator*(const IFactor& other) const
 
 const IDerivedUnit* Unit::operator/(const IFactor& other) const
 {
-    return new DerivedUnit({this, new Factor(&other, -1)});
+    return new DerivedUnit({this, new Factor(other, -1)});
 }
 
 const IDerivedUnit* Unit::operator^(const double value) const
 {
-    return new DerivedUnit({new Factor(this, value)});
+    return new DerivedUnit({new Factor(*this, value)});
 }
 
 const IDerivedUnit* Unit::operator~() const
 {
-    return new DerivedUnit({new Factor(this, -1)});
+    return new DerivedUnit({new Factor(*this, -1)});
 }
 
 const IUnitConverter* FundamentalUnit::toBase() const
@@ -103,7 +103,7 @@ const IUnitConverter* DerivedUnit::toBase() const
     for (const IFactor* factor : definition())
     {
         const IUnitConverter* oldTransform = transform;
-        transform = factor->dim()->toBase()->linearPow(factor->power())->concatenate(*transform);
+        transform = factor->dim().toBase()->linearPow(factor->power())->concatenate(*transform);
         delete oldTransform;
     }
     return transform;

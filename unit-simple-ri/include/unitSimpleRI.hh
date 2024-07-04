@@ -38,10 +38,10 @@ class Factor : public virtual IFactor
 {
 
 public:
-    Factor(const IUnit* unit, const int numerator, const int denominator = 1);
-    Factor(const IFactor* dim, const int numerator, const int denominator = 1);
+    Factor(const IUnit& unit, const int numerator, const int denominator = 1);
+    Factor(const IFactor& dim, const int numerator, const int denominator = 1);
 
-    virtual const IUnit* dim() const override;
+    virtual const IUnit& dim() const override;
     virtual int numerator() const override;
     virtual int denominator() const override;
     virtual double power() const override;
@@ -53,7 +53,7 @@ public:
     virtual ~Factor() {}
 
 private:
-    const IUnit* mUnit;
+    const IUnit& mUnit;
     const int mNumerator;
     const int mDenominator;
 };

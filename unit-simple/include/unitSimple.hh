@@ -32,7 +32,7 @@ class IDerivedUnit;
 class IFactor {
 
   public:
-    virtual const IUnit* dim() const = 0;
+    virtual const IUnit& dim() const = 0;
     virtual int numerator() const = 0;
     virtual int denominator() const = 0;
     virtual double power() const = 0;
