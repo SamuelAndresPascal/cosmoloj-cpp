@@ -86,11 +86,11 @@ const IUnitConverter* TransformedUnit::toBase() const
     return this->reference()->toBase()->concatenate(*(this->toReference()));
 }
 
-DerivedUnit::DerivedUnit(const list<const IFactor*> definition) : mDefinition(definition)
+DerivedUnit::DerivedUnit(const std::list<const IFactor*> definition) : mDefinition(definition)
 {
 }
 
-const list<const IFactor*> DerivedUnit::definition() const
+const std::list<const IFactor*> DerivedUnit::definition() const
 {
     return mDefinition;
 }

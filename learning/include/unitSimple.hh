@@ -3,8 +3,6 @@
 
 #include <list>
 
-using namespace std;
-
 namespace unit
 {
 
@@ -114,12 +112,11 @@ class ITransformedUnit : virtual public IUnit {
 class IDerivedUnit : virtual public IUnit {
 
 public:
-    virtual const list<const IFactor*> definition() const = 0;
+    virtual const std::list<const IFactor*> definition() const = 0;
 
     virtual ~IDerivedUnit() {}
 };
 
 }
-
 
 #endif // UNIT_SIMPLE_HH_INCLUDED
