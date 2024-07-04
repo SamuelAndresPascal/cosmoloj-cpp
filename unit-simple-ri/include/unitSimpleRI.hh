@@ -79,7 +79,7 @@ public:
 
     virtual ~Unit() {}
 
-    static const IUnitConverter* affine(const IUnit* source, const IUnit* target);
+    static const IUnitConverter* affine(const IUnit& source, const IUnit& target);
 };
 
 class FundamentalUnit : public Unit, virtual public IFundamentalUnit

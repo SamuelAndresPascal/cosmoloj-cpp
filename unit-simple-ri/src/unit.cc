@@ -8,14 +8,14 @@ Unit::Unit() : Factor(this, 1, 1)
 {
 }
 
-const IUnitConverter* Unit::affine(const IUnit* source, const IUnit* target)
+const IUnitConverter* Unit::affine(const IUnit& source, const IUnit& target)
 {
-    return target->toBase()->inverse().concatenate(*(source->toBase()));
+    return target.toBase()->inverse().concatenate(*(source.toBase()));
 }
 
 const IUnitConverter* Unit::getConverterTo(const IUnit& target) const
 {
-    return affine(this, &target);
+    return affine(*this, target);
 }
 
 const ITransformedUnit* Unit::shift(const double value) const
