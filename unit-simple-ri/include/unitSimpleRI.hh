@@ -97,17 +97,17 @@ class TransformedUnit : public Unit, virtual public ITransformedUnit
 {
 
 public:
-    TransformedUnit(const IUnitConverter* toReference, const IUnit* refUnit);
+    TransformedUnit(const IUnitConverter& toReference, const IUnit& refUnit);
 
     virtual const IUnitConverter* toBase() const override;
-    virtual const IUnitConverter* toReference() const override;
-    virtual const IUnit* reference() const override;
+    virtual const IUnitConverter& toReference() const override;
+    virtual const IUnit& reference() const override;
 
     virtual ~TransformedUnit() {}
 
 private:
-    const IUnit* mReference;
-    const IUnitConverter* mToReference;
+    const IUnit& mReference;
+    const IUnitConverter& mToReference;
 };
 
 class DerivedUnit : public Unit, virtual public IDerivedUnit

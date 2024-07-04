@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
   const ITransformedUnit* km = m->scaleMultiply(1000.);
   const ITransformedUnit* cm = m->scaleDivide(100.);
 
-  cout << km->toReference()->scale() << endl;
+  cout << km->toReference().scale() << endl;
 
   const IUnitConverter* kmToCm = km->getConverterTo(*cm);
 

@@ -103,8 +103,8 @@ class IFundamentalUnit : virtual public IUnit {
 class ITransformedUnit : virtual public IUnit {
 
   public:
-    virtual const IUnitConverter* toReference() const = 0;
-    virtual const IUnit* reference() const = 0;
+    virtual const IUnitConverter& toReference() const = 0;
+    virtual const IUnit& reference() const = 0;
 
     virtual ~ITransformedUnit() {}
 };

@@ -20,12 +20,12 @@ const IUnitConverter* Unit::getConverterTo(const IUnit& target) const
 
 const ITransformedUnit* Unit::shift(const double value) const
 {
-    return new TransformedUnit(UnitConverter::of(1., value), this);
+    return new TransformedUnit(*UnitConverter::of(1., value), *this);
 }
 
 const ITransformedUnit* Unit::scaleMultiply(const double value) const
 {
-    return new TransformedUnit(UnitConverter::of(value), this);
+    return new TransformedUnit(*UnitConverter::of(value), *this);
 }
 
 const ITransformedUnit* Unit::scaleDivide(const double value) const
@@ -67,23 +67,23 @@ FundamentalUnit::FundamentalUnit() : Unit()
 {
 }
 
-TransformedUnit::TransformedUnit(const IUnitConverter* toReference, const IUnit* refUnit) : mToReference(toReference), mReference(refUnit)
+TransformedUnit::TransformedUnit(const IUnitConverter& toReference, const IUnit& refUnit) : mToReference(toReference), mReference(refUnit)
 {
 }
 
-const IUnitConverter* TransformedUnit::toReference() const
+const IUnitConverter& TransformedUnit::toReference() const
 {
     return mToReference;
 }
 
-const IUnit* TransformedUnit::reference() const
+const IUnit& TransformedUnit::reference() const
 {
     return mReference;
 }
 
 const IUnitConverter* TransformedUnit::toBase() const
 {
-    return this->reference()->toBase()->concatenate(*(this->toReference()));
+    return this->reference().toBase()->concatenate(this->toReference());
 }
 
 DerivedUnit::DerivedUnit(const list<const IFactor*> definition) : mDefinition(definition)
