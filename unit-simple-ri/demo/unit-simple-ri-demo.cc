@@ -1,7 +1,6 @@
 #include <iostream>
 #include "unitSimpleRI.hh"
 
-using namespace std;
 using namespace unit;
 
 
@@ -12,11 +11,11 @@ int main(int argc, char *argv[])
   const ITransformedUnit* km = m->scaleMultiply(1000.);
   const ITransformedUnit* cm = m->scaleDivide(100.);
 
-  cout << km->toReference().scale() << endl;
+  std::cout << km->toReference().scale() << std::endl;
 
   const IUnitConverter* kmToCm = km->getConverterTo(*cm);
 
-  cout << kmToCm->convert(10) << endl;
+  std::cout << kmToCm->convert(10) << std::endl;
 
   const IUnit* s = new FundamentalUnit();
   const ITransformedUnit* h = s->scaleMultiply(3600.);
@@ -27,8 +26,8 @@ int main(int argc, char *argv[])
 
   const IUnitConverter* msToKmh = ms->getConverterTo(*kmh);
 
-  cout << msToKmh->convert(100) << endl;
+  std::cout << msToKmh->convert(100) << std::endl;
 
-  cout << "Hello World!" << endl;
+  std::cout << "Hello World!" << std::endl;
   return 0;
 }

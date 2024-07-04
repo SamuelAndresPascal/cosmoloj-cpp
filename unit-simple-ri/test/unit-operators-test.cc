@@ -1,4 +1,3 @@
-//#include <cppunit/extensions/HelperMacros.h>
 #include <TestCase.h>
 #include <TestFixture.h>
 #include <TestSuite.h>

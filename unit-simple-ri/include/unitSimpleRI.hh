@@ -1,10 +1,8 @@
-#ifndef UNIT_SIMPLE_RI_HH_INCLUDED
-#define UNIT_SIMPLE_RI_HH_INCLUDED
+#ifndef UNIT_SIMPLE_RI_HH
+#define UNIT_SIMPLE_RI_HH
 
 #include <list>
 #include "unitSimple.hh"
-
-using namespace std;
 
 namespace unit
 {
@@ -114,16 +112,16 @@ class DerivedUnit : public Unit, virtual public IDerivedUnit
 {
 
 public:
-    DerivedUnit(const list<const IFactor*> definition);
+    DerivedUnit(const std::list<const IFactor*> definition);
 
     virtual const IUnitConverter* toBase() const override;
-    virtual const list<const IFactor*> definition() const override;
+    virtual const std::list<const IFactor*> definition() const override;
 
     virtual ~DerivedUnit() {}
 
 private:
-    const list<const IFactor*> mDefinition;
+    const std::list<const IFactor*> mDefinition;
 };
 
 }
-#endif /* UNIT_SIMPLE_RI_HH_INCLUDED */
+#endif /* UNIT_SIMPLE_RI_HH */
