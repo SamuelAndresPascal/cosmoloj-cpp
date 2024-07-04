@@ -1,5 +1,5 @@
-#ifndef UNIT_SIMPLE_RI_HH_INCLUDED
-#define UNIT_SIMPLE_RI_HH_INCLUDED
+#ifndef UNIT_SIMPLE_RI_HH
+#define UNIT_SIMPLE_RI_HH
 
 #include <list>
 #include "unitSimple.hh"
@@ -17,29 +17,29 @@ public:
     virtual double offset() const override;
     virtual const IUnitConverter* inverse() const override;
     virtual const IUnitConverter* linear() const override;
-    virtual const IUnitConverter* linearPow(double pow) const override;
-    virtual double convert(double value) const override;
-    virtual const IUnitConverter* concatenate(const IUnitConverter* converter) const override;
+    virtual const IUnitConverter* linearPow(const double pow) const override;
+    virtual double convert(const double value) const override;
+    virtual const IUnitConverter* concatenate(const IUnitConverter& converter) const override;
 
     virtual ~UnitConverter() override;
 
-    static const UnitConverter* of(double scale, double offset = 0.);
+    static const UnitConverter* of(const double scale, const double offset = 0.);
 
 private:
     const double mScale;
     const double mOffset;
     const IUnitConverter* mInverse;
     const bool mDestructInverse;
-    UnitConverter(double scale, double offset);
-    UnitConverter(double scale, double offset, const IUnitConverter* inverse);
+    UnitConverter(const double scale, const double offset);
+    UnitConverter(const double scale, const double offset, const IUnitConverter* inverse);
 };
 
 class Factor : public virtual IFactor
 {
 
 public:
-    Factor(const IUnit* unit, int numerator, int denominator = 1);
-    Factor(const IFactor* dim, int numerator, int denominator = 1);
+    Factor(const IUnit* unit, const int numerator, const int denominator = 1);
+    Factor(const IFactor* dim, const int numerator, const int denominator = 1);
 
     virtual const IUnit* dim() const override;
     virtual int numerator() const override;
@@ -66,13 +66,13 @@ public:
 
     virtual const IUnitConverter* toBase() const = 0;
 
-    virtual const IUnitConverter* getConverterTo(const IUnit* target) const override;
-    virtual const ITransformedUnit* shift(double value) const override;
-    virtual const ITransformedUnit* scaleMultiply(double value) const override;
-    virtual const IFactor* factor(int numerator, int denominator = 1) const override;
+    virtual const IUnitConverter* getConverterTo(const IUnit& target) const override;
+    virtual const ITransformedUnit* shift(const double value) const override;
+    virtual const ITransformedUnit* scaleMultiply(const double value) const override;
+    virtual const IFactor* factor(const int numerator, const int denominator = 1) const override;
     virtual const ITransformedUnit* scaleDivide(const double value) const override;
-   
-    virtual const IDerivedUnit* operator^(double value) const override; 
+
+    virtual const IDerivedUnit* operator^(const double value) const override;
     virtual const IDerivedUnit* operator*(const IFactor& other) const override;
     virtual const IDerivedUnit* operator/(const IFactor& other) const override;
     virtual const IDerivedUnit* operator~() const override;
@@ -126,4 +126,4 @@ private:
 };
 
 }
-#endif /* UNIT_SIMPLE_RI_HH_INCLUDED */
+#endif /* UNIT_SIMPLE_RI_HH */

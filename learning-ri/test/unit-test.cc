@@ -15,7 +15,7 @@ public:
     const IUnit* m = new FundamentalUnit();
     const IUnit* km = m->scaleMultiply(1000);
     const IUnit* cm = m->scaleDivide(100);
-    const IUnitConverter* cmToKm = cm->getConverterTo(km);
+    const IUnitConverter* cmToKm = cm->getConverterTo(*km);
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(0.00003, cmToKm->convert(3), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., cmToKm->inverse()->convert(0.00003), 1e-10);
@@ -33,11 +33,11 @@ public:
     const IUnit* km2 = new DerivedUnit({km->factor(2)});
     const IUnit* cm = m->scaleDivide(100);
     const IUnit* cm2 = new DerivedUnit({cm->factor(2)});
-    const IUnitConverter* km2Tocm2 = km2->getConverterTo(cm2);
+    const IUnitConverter* km2Tocm2 = km2->getConverterTo(*cm2);
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(30000000000., km2Tocm2->convert(3), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., km2Tocm2->inverse()->convert(30000000000.), 1e-10);
-    
+
     delete km2Tocm2;
     delete cm2;
     delete cm;
@@ -58,8 +58,8 @@ public:
     const IUnit* tonPerKm2 = new DerivedUnit({ton, km->factor(-2)});
     const IUnit* cm = m->scaleDivide(100);
     const IUnit* tonPerCm2 = new DerivedUnit({ton, cm->factor(-2)});
-    const IUnitConverter* gPerM2ToTonPerKm2 = gPerM2->getConverterTo(tonPerKm2);
-    const IUnitConverter* gPerM2ToTonPerCm2 = gPerM2->getConverterTo(tonPerCm2);
+    const IUnitConverter* gPerM2ToTonPerKm2 = gPerM2->getConverterTo(*tonPerKm2);
+    const IUnitConverter* gPerM2ToTonPerCm2 = gPerM2->getConverterTo(*tonPerCm2);
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(1., gPerM2ToTonPerKm2->convert(1.), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., gPerM2ToTonPerKm2->inverse()->convert(3.), 1e-10);
@@ -88,7 +88,7 @@ public:
 
     const IUnit* k = new FundamentalUnit();
     const IUnit* c = k->shift(273.15);
-    const IUnitConverter* kToC = k->getConverterTo(c);
+    const IUnitConverter* kToC = k->getConverterTo(*c);
 
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-273.15, kToC->convert(0), 1e-10);
@@ -102,7 +102,7 @@ public:
     const IUnit* m = new FundamentalUnit();
     const IUnit* cPerM = new DerivedUnit({c, m->factor(-1)});
     const IUnit* kPerM = new DerivedUnit({k, m->factor(-1)});
-    const IUnitConverter* kPerMToCPerM = kPerM->getConverterTo(cPerM);
+    const IUnitConverter* kPerMToCPerM = kPerM->getConverterTo(*cPerM);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., kPerMToCPerM->convert(3), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., kPerMToCPerM->inverse()->convert(3), 1e-10);
 
@@ -125,7 +125,7 @@ public:
     const IUnit* ms = new DerivedUnit({m, s->factor(-1)});
     const IUnit* kmh = new DerivedUnit({km, h->factor(-1)});
 
-    const IUnitConverter* msToKmh = ms->getConverterTo(kmh);
+    const IUnitConverter* msToKmh = ms->getConverterTo(*kmh);
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(360.0, msToKmh->convert(100.0), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(5.0, msToKmh->inverse()->convert(18.0), 1e-10);

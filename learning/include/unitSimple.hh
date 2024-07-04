@@ -16,9 +16,9 @@ public:
     virtual double offset() const = 0;
     virtual const IUnitConverter* inverse() const = 0;
     virtual const IUnitConverter* linear() const = 0;
-    virtual const IUnitConverter* linearPow(double pow) const = 0;
-    virtual double convert(double value) const = 0;
-    virtual const IUnitConverter* concatenate(const IUnitConverter* converter) const = 0;
+    virtual const IUnitConverter* linearPow(const double pow) const = 0;
+    virtual double convert(const double value) const = 0;
+    virtual const IUnitConverter* concatenate(const IUnitConverter& converter) const = 0;
 
     const IUnitConverter* operator~() const
     {
@@ -51,44 +51,44 @@ class ITransformedUnit;
 class IUnit : virtual public IFactor {
 
   public:
-    virtual const IUnitConverter* getConverterTo(const IUnit* target) const = 0;
+    virtual const IUnitConverter* getConverterTo(const IUnit& target) const = 0;
     virtual const IUnitConverter* toBase() const = 0;
-    virtual const ITransformedUnit* shift(double value) const = 0;
-    virtual const ITransformedUnit* scaleMultiply(double value) const = 0;
-    virtual const IFactor* factor(int numerator, int denominator = 1) const = 0;
+    virtual const ITransformedUnit* shift(const double value) const = 0;
+    virtual const ITransformedUnit* scaleMultiply(const double value) const = 0;
+    virtual const IFactor* factor(const int numerator, const int denominator = 1) const = 0;
     virtual const ITransformedUnit* scaleDivide(const double value) const = 0;
 
     virtual const IDerivedUnit* operator*(const IFactor& other) const = 0;
     virtual const IDerivedUnit* operator/(const IFactor& other) const = 0;
-    virtual const IDerivedUnit* operator^(double value) const = 0;
+    virtual const IDerivedUnit* operator^(const double value) const = 0;
     virtual const IDerivedUnit* operator~() const = 0;
 
     const IUnitConverter* operator>>(const IUnit& target) const
     {
-      return getConverterTo(&target);
+      return getConverterTo(target);
     }
 
     const IUnitConverter* operator<<(const IUnit& target) const
     {
-      return target.getConverterTo(this);
+      return target.getConverterTo(*this);
     }
 
-    const ITransformedUnit* operator+(double value) const
+    const ITransformedUnit* operator+(const double value) const
     {
       return shift(value);
     }
 
-    const ITransformedUnit* operator-(double value) const
+    const ITransformedUnit* operator-(const double value) const
     {
       return shift(-value);
     }
 
-    const ITransformedUnit* operator*(double value) const
+    const ITransformedUnit* operator*(const double value) const
     {
       return scaleMultiply(value);
     }
 
-    const ITransformedUnit* operator/(double value) const
+    const ITransformedUnit* operator/(const double value) const
     {
       return scaleDivide(value);
     }
