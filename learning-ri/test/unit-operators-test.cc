@@ -1,4 +1,4 @@
-//#include <cppunit/extensions/HelperMacros.h>
+#include <extensions/HelperMacros.h>
 #include <TestCase.h>
 #include <TestFixture.h>
 #include <TestSuite.h>
@@ -8,6 +8,15 @@
 using namespace unit;
 
 class SimpleUnitOperatorsTest : public CppUnit::TestFixture {
+
+    CPPUNIT_TEST_SUITE( SimpleUnitOperatorsTest );
+    CPPUNIT_TEST( transformed );
+    CPPUNIT_TEST( derived );
+    CPPUNIT_TEST( combinedDerived );
+    CPPUNIT_TEST( temperatures );
+    CPPUNIT_TEST( speed );
+    CPPUNIT_TEST_SUITE_END();
+
 public:
 
   void transformed()
@@ -19,7 +28,7 @@ public:
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(0.00003, cmToKm->convert(3), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., (~*cmToKm)->convert(0.00003), 1e-10);
- 
+
     delete cmToKm;
     delete cm;
     delete km;
@@ -139,28 +148,5 @@ public:
     delete km;
     delete m;
   }
-
-
-  static CppUnit::Test *suite()
-  {
-    CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite( "SimpleUnitTest" );
-    suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitOperatorsTest>(
-                                   "transformed unit conversion",
-                                   &SimpleUnitOperatorsTest::transformed ) );
-    suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitOperatorsTest>(
-                                   "derived unit conversion",
-                                   &SimpleUnitOperatorsTest::derived ) );
-    suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitOperatorsTest>(
-                                   "combined dimension derived unit conversion",
-                                   &SimpleUnitOperatorsTest::combinedDerived ) );
-    suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitOperatorsTest>(
-                                   "temperatures",
-                                   &SimpleUnitOperatorsTest::temperatures ) );
-    suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitOperatorsTest>(
-                                   "speed",
-                                   &SimpleUnitOperatorsTest::speed ) );
-    return suiteOfTests;
-  }
-
 
 };

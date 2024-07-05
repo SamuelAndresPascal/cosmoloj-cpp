@@ -75,11 +75,6 @@ enable_testing()
 
 add_test(NAME su-test COMMAND su-test)
 
-set_tests_properties(
-    su-test
-    PROPERTIES PASS_REGULAR_EXPRESSION "OK"
-)
-
 
 
 

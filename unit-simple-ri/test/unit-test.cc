@@ -116,6 +116,7 @@ public:
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., kPerMToCPerM->convert(3), 1e-10);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(3., kPerMToCPerM->inverse().convert(3), 1e-10);
 
+    delete kPerMToCPerM;
     delete kPerM;
     delete cPerM;
     delete m;
