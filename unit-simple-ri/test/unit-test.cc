@@ -1,3 +1,4 @@
+#include <extensions/HelperMacros.h>
 #include <TestCase.h>
 #include <TestFixture.h>
 #include <TestSuite.h>
@@ -6,7 +7,17 @@
 
 using namespace unit;
 
+
 class SimpleUnitTest : public CppUnit::TestFixture {
+
+    CPPUNIT_TEST_SUITE( SimpleUnitTest );
+    CPPUNIT_TEST( transformed );
+    CPPUNIT_TEST( derived );
+    CPPUNIT_TEST( combinedDerived );
+    CPPUNIT_TEST( temperatures );
+    CPPUNIT_TEST( speed );
+    CPPUNIT_TEST_SUITE_END();
+
 public:
 
   void transformed()
@@ -137,28 +148,4 @@ public:
     delete km;
     delete m;
   }
-
-
-  static CppUnit::Test *suite()
-  {
-    CppUnit::TestSuite *suiteOfTests = new CppUnit::TestSuite( "SimpleUnitTest" );
-    suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitTest>(
-                                   "transformed unit conversion",
-                                   &SimpleUnitTest::transformed ) );
-    suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitTest>(
-                                   "derived unit conversion",
-                                   &SimpleUnitTest::derived ) );
-    suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitTest>(
-                                   "combined dimension derived unit conversion",
-                                   &SimpleUnitTest::combinedDerived ) );
-    suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitTest>(
-                                   "temperatures",
-                                   &SimpleUnitTest::temperatures ) );
-    suiteOfTests->addTest( new CppUnit::TestCaller<SimpleUnitTest>(
-                                   "speed",
-                                   &SimpleUnitTest::speed ) );
-    return suiteOfTests;
-  }
-
-
 };
