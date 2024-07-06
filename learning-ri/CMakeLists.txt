@@ -62,6 +62,7 @@ add_executable(
     su-test
     test/unit-test.cc
     test/unit-operators-test.cc
+    test/parameterized-test.cc
     test/test.cc
 )
 
