@@ -17,6 +17,7 @@ include_directories(
     include
     /usr/include/cppunit
     ../learning/include
+    /usr/include/boost
 )
 
 
@@ -63,6 +64,7 @@ add_executable(
     test/unit-test.cc
     test/unit-operators-test.cc
     test/parameterized-test.cc
+    test/boost-math-distribution-test.cc
     test/test.cc
 )
 

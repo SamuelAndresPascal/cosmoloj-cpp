@@ -2,6 +2,7 @@
 #include "unit-test.cc"
 #include "unit-operators-test.cc"
 #include "parameterized-test.cc"
+#include "boost-math-distribution-test.cc"
 
 int main( int argc, char **argv)
 {
@@ -9,5 +10,6 @@ int main( int argc, char **argv)
   runner.addTest( SimpleUnitTest::suite() );
   runner.addTest( SimpleUnitOperatorsTest::suite() );
   runner.addTest( ParameterizedTest::suite() );
+  runner.addTest( BoostMathDistributionTest::suite() );
   return !runner.run( "", false );
 }

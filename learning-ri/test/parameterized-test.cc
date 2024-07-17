@@ -84,7 +84,6 @@ class ParameterizedTest : public CppUnit::TestFixture
 
 public:
 
-
     void parameterized1(Parameter1& x)
     {
         CPPUNIT_ASSERT_EQUAL(5, (int)x.toto().length());
