@@ -20,6 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt install -y libcppunit-dev
+      - run: sudo apt install -y libboost-math-dev libcppunit-dev
       - working-directory: ./learning-ri
         run: . build.sh
