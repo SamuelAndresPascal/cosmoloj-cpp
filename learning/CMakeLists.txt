@@ -12,6 +12,7 @@ add_library(
     SHARED
     include/unitSimple.hh
     include/polymorphism.hh
+    include/stats.hh
 )
 
 set_target_properties(

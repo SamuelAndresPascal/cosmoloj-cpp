@@ -4,6 +4,7 @@
 #include <TestSuite.h>
 #include <TestCaller.h>
 #include "boost/math/distributions.hpp"
+#include "stats.hh"
 
 
 class Expon
@@ -230,10 +231,39 @@ class BoostMathDistributionTest : public CppUnit::TestFixture
         Gamma(0.9, 0.2, 1., 0.3064068791124165, 0.5, ""),
         Gamma(0.9, 0.2, 1.2, 0.26595645375601923, 0.5, "")
     });
+    CPPUNIT_TEST( coucou );
+    CPPUNIT_TEST( pdf );
     CPPUNIT_TEST_SUITE_END();
 
 
 public:
+
+    void coucou()
+    {
+        CPPUNIT_ASSERT_EQUAL(std::string("coucou"), stats::coucou());
+    }
+
+    void pdf()
+    {
+        const auto exponential = boost::math::exponential_distribution<>{1.};
+        const std::vector<double> exp_x = {0.5, 0.5, 0.3};
+        const std::vector<double> exp_result = stats::pdf(exponential, exp_x);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.6065306597126334, exp_result[0], 1e-10);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.6065306597126334, exp_result[1], 1e-10);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.7408182206817179, exp_result[2], 1e-10);
+
+        const auto normal = boost::math::normal_distribution<>{0.2, 1.};
+        const std::vector<double> normal_x = {0.7, 0.5};
+        const std::vector<double> normal_result = stats::pdf(normal, normal_x);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.3520653267642995, normal_result[0], 1e-10);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.38138781546052414, normal_result[1], 1e-10);
+
+        const auto gamma = boost::math::gamma_distribution<>{0.9, 1.};
+        const std::vector<double> gamma_x = {0.5, 0.3};
+        const std::vector<double> gamma_result = stats::pdf(gamma, gamma_x);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.6083155580655996, gamma_result[0], 1e-10);
+        CPPUNIT_ASSERT_DOUBLES_EQUAL(0.7819386772878384, gamma_result[1], 1e-10);
+    }
 
 
     void expon_pdf(Expon& p)
