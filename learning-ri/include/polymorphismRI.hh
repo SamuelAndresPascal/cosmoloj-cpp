@@ -13,5 +13,7 @@ class Child : public Parent, public virtual IChild
 {
   public:
   const int getInt() const override;
+
+  static Child getOne();
 };
 #endif /* POLYMORPHISM_RI_HH */

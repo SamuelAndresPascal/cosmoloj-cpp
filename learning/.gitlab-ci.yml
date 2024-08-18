@@ -2,7 +2,7 @@ build-learning:
   stage: build
   script:
     - cd learning
-    - cmake .
+    - cmake -DCMAKE_CXX_STANDARD=17 .
     - make
   artifacts:
     expire_in: 2 days

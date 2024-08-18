@@ -9,3 +9,8 @@ const int Child::getInt() const
 {
   return 2;
 }
+
+Child Child::getOne()
+{
+  return Child();
+}

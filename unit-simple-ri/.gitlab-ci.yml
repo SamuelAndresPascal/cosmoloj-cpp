@@ -2,7 +2,7 @@ build-unit-simple-ri:
   stage: build
   script:
     - cd unit-simple-ri
-    - cmake .
+    - cmake -DCMAKE_CXX_STANDARD=17 .
     - make
   artifacts:
     expire_in: 2 days
@@ -11,9 +11,9 @@ test-unit-simple-ri:
   stage: test
   script:
     - cd unit-simple-ri
-    - cmake .
+    - cmake -DCMAKE_CXX_STANDARD=17 .
     - make
-    - make test
+    - ctest -V --output-on-failure
   artifacts:
     expire_in: 2 days
 

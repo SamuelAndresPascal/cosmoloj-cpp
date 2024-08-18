@@ -2,7 +2,7 @@ build-learning-ri:
   stage: build
   script:
     - cd learning-ri
-    - cmake .
+    - cmake -DCMAKE_CXX_STANDARD=17 .
     - make
   artifacts:
     expire_in: 2 days
@@ -11,9 +11,9 @@ test-learning-ri:
   stage: test
   script:
     - cd learning-ri
-    - cmake .
+    - cmake -DCMAKE_CXX_STANDARD=17 .
     - make
-    - make test
+    - ctest -V --output-on-failure
   artifacts:
     expire_in: 2 days
 

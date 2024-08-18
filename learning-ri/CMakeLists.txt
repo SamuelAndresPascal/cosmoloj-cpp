@@ -1,7 +1,10 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.22)
 project(learning-ri)
 
-cmake_policy(VERSION 2.8.1)
+cmake_policy(VERSION 3.22)
+
+set(CMAKE_CXX_STANDARD CACHE STRING "cxx standard")
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 if(NOT DEFINED EXECUTABLE_OUTPUT_PATH)
@@ -64,6 +67,7 @@ add_executable(
     test/unit-test.cc
     test/unit-operators-test.cc
     test/parameterized-test.cc
+    test/polymorphism-test.cc
     test/boost-math-distribution-test.cc
     test/test.cc
 )

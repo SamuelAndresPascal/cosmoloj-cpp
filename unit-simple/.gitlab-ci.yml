@@ -2,7 +2,7 @@ build-unit-simple:
   stage: build
   script:
     - cd unit-simple
-    - cmake .
+    - cmake -DCMAKE_CXX_STANDARD=17 .
     - make
   artifacts:
     expire_in: 2 days
