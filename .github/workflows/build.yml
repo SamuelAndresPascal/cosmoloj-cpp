@@ -15,11 +15,21 @@ jobs:
       - uses: actions/checkout@v4
       - run: sudo apt install -y libcppunit-dev
       - working-directory: ./unit-simple-ri
-        run: . build.sh
+        run: |
+          cmake -DCMAKE_CXX_STANDARD=17 .
+          make
+          ctest -V --output-on-failure
+          bin/unit-simple-ri-demo
   build__learning_ri:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt install -y libboost-math-dev libcppunit-dev
       - working-directory: ./learning-ri
-        run: . build.sh
+        run: |
+          cmake -DCMAKE_CXX_STANDARD=17 .
+          make
+          ctest -V --output-on-failure
+          bin/polymorphism-demo
+          bin/array-demo
+          bin/unit-simple-ri-demo
